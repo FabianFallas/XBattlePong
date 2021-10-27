@@ -1,0 +1,144 @@
+
+/*Contenedores para la ventana*/
+
+/* Contenedor principal para reglas y catálogo de barcos disponibles*/
+.contenedor_principal{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100vw;
+  }
+  
+/*Contenedor que almacena las reglas disponibles del juego*/
+.contenedor{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 20vw;
+  }
+  
+/*Contenedor que almacena los barcos disponibles en la partida*/
+.contenedor_barcos{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 40vw;
+  }
+
+/*Contenedor para para almacenar las diferentes partes del juego como reglas y barcos*/
+.fondo_informacion{
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(38, 100, 125, 0.7);
+    border-radius: 16px;
+    align-items: left;
+    justify-content: space-around;
+  }
+
+/*Definiciones para el título principal del juego*/
+.para_titulo {
+    display: flex;
+    margin: 82px auto 32px;
+    padding: 0 16px;
+    max-width: 960px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+/*Definiciones para los logos del juego*/
+.logo {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+/*Definiciones para los requerimientos de evento*/
+.elementos_principales{
+    display: flex;
+    flex-direction: row;
+    margin-right: 5px;
+  }
+  
+/*Definiciones para las entradas  de texto*/
+.entradas_texto{
+    width: 140px;
+    height: 30px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    border-radius: 5px;
+    background-color: rgb(187, 209, 88);
+    color: rgb(40, 38, 59);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+/*Definiciones para las botones de la ventana*/
+.boton{
+    width: 100px;
+    height: 30px;
+    align-self: center;
+    background-color: rgb(187, 209, 88);;
+    border-radius: 5px;
+    margin-left: 5px;
+  }
+
+  
+  .item2{
+    width: 140px;
+    height: 30px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background-color: rgb(187, 209, 88);
+    color: rgb(40, 38, 59);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+/*Definiciones para la etiqueta regular*/ 
+.etiqueta_simple{
+    margin-bottom: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(40, 38, 59);
+  }
+  
+/*Definiciones para la etiqueta con efecto de sombra*/
+.etiqueta_especial{
+    color: rgb(40, 38, 59);
+    text-shadow: 0 0 3px #adda5a;
+    font-family: 'Bangers', cursive;
+    margin-top: 6px;
+    margin-left: 5px;
+  }
+  
+  .especial{
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background-color: rgb(187, 209, 88);;
+    width: 140px;
+  }
+  
+  .box{
+    color: rgb(40, 38, 59);
+  }
+  
+  input{
+    height: 30px;
+  }
+  
+  .inicio{
+    display: flex;
+    flex-direction: row;
+  }
+  
+ 
+  
+ 
+
+  .contenedor_tablero{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items:flex-end;
+    width: 40vw;
+  }
+
+  
+  

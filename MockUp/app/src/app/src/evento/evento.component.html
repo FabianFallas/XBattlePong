@@ -1,0 +1,184 @@
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+<!DOCTYPE html> <!--indica que es html5-->
+
+<!-- LOGOS LISTOS -->
+<div class="logo">
+    <img
+    width="80"
+    alt="Angular Logo"
+    src="assets/xtec.png">
+
+    <img
+    width="120" 
+    alt="Angular Logo"
+    src="assets/xbattlepong.png">
+</div> 
+
+<!--Título de la ventana-->
+<div class="content" role="main"  style="margin-top: -50px" >
+  <div style = "text-align: center;" style="font-family: Arial, Helvetica, sans-serif;" >
+    <h1 class= "labelt" > CREAR EVENTO </h1>
+</div>
+
+
+<!--indica que es html5-->
+<div class = "primerC">
+
+    <div class = "contenedor">
+
+      <h3 style="font-family: Arial, Helvetica, sans-serif;" class= "labelt"> Datos del evento  </h3>
+      
+      <mat-card class="example-card">
+
+        <form [formGroup]="formularioevento" class="evento">
+
+          
+          <label  class="label"> Nombre la partida *</label>
+          <input id="nombrepartida" class= "item" placeholder=" Nombre de la partida" #nombrepartida>
+          
+          <div class = "inicio">
+
+            <div class = "evento">
+              <label  class="label" >Fecha de Incio *</label>
+              <input type="date" [min]="minDate" [max]="maxDate" class="especial" id="fechai" #fechai >
+            </div>
+
+            <div class = "evento" style="margin-left: 30px">
+              <label class="label" >Hora de Inicio *</label>
+              <input type="time"  class="especial" id="horai" #horai >
+            </div>
+
+          </div>
+
+          <div class = "inicio">
+
+            <div class = "evento">
+              <label  class="label" >Fecha de Finalización *</label>
+              <input type="date" [min]="minDate" [max]="maxDate" class="especial" id="fechaf" #fechaf>
+            </div>
+
+            <div class = "evento" style="margin-left: 10px">
+              <label class="label" >Hora de Finalización *</label>
+              <input type="time" class="especial" id="horaf" #horaf>
+            </div>
+
+          </div>
+
+          
+          <div class = "inicio">
+
+            <div class = "evento">
+              <label class="label" >País *</label>
+
+              <select id="pais" class="item2"  #pais >
+
+                  <option> Argentina </option>
+                  <option> Brasil </option>
+                  <option> Canadá </option>
+                  <option> Chile </option>
+                  <option> Costa Rica </option>
+                  <option> España </option>
+                  <option> Estados Unidos </option>
+                  <option> Guatemala </option>
+                  <option> México </option>
+                  <option> Panamá </option>
+
+              </select>
+              
+            </div>
+
+          <div class = "evento" style="margin-left: 30px">
+              <label  class="label" >Localidad *</label>
+              <input id="localidad"  class="item2"  placeholder="Localidad"  #localidad>
+            </div>
+
+          </div>
+            
+          <label   class="label" >Código *</label>
+          <input id="codigo" class= "item"  placeholder="Código" #codigo >
+
+          <label  class="label" >Nombre de Organizador</label>
+          <input id="nombreorg" class= "item"  placeholder="Organizador" #nombreorg >
+
+          <label class="label" >* Campo Obligatorio</label>
+
+        </form>
+
+      </mat-card>
+
+    </div>
+
+
+
+
+
+    <div class="contenedor">
+
+      <h3 class= "labelt" style="font-family: Arial, Helvetica, sans-serif"> Configuración de la partida </h3>
+
+      <mat-card class="example-card">
+
+        <form [formGroup]="formulariopartida">
+
+          <label  class="label" >Dimensiones del Tablero</label>
+
+          <div class = "inicio">
+            
+            <div class = "evento" >
+              <label  class="label" >Filas *</label>
+              <input type="number" min="4" max="100" class="especial"  id="filas"  #filas>
+            </div>
+
+            <div class = "evento" style="margin-left: 30px" >
+              <label  class="label" >Columnas *</label>
+              <input type="number"  min="4" max="100" class="especial"  id="columnas" #columnas>
+            </div>
+
+          </div>
+          
+          <div class = "evento" >
+
+            <label  class="label" >Tiempo de disparo *</label>
+            <input type="number"  min="1" max ="300"  class="especial"  id="disparo" #disparo>
+          </div>
+            
+
+          <label  class="label" >Tipo de partida *</label>
+
+          <div class = "evento" >
+            
+            <mat-radio-group>
+
+              <div>
+                <mat-radio-button class= "box" mat-button   style="font-family: Arial, Helvetica, sans-serif" value="1">Individual</mat-radio-button>
+              </div>
+
+              <div>
+                <mat-radio-button class= "box" mat-button  style="font-family: Arial, Helvetica, sans-serif" value="2">Multijugador</mat-radio-button>
+              </div>
+              
+            </mat-radio-group>
+
+          </div>
+
+          <label class="label" >* Campo Obligatorio</label>
+          
+        </form>
+
+      </mat-card>
+
+      <h2  class="labelt" style = "text-align: center;">Confirmar evento</h2>
+
+      <button class="boton"  (click) = "Verificar(nombrepartida.value,
+      fechai.value, horai.value, fechaf.value, horaf.value, pais.value, localidad.value,
+       codigo.value, filas.value, columnas.value, disparo.value)" >Confirmar </button>
+
+      <h3  class="labelt" style = "text-align: center;">{{token}}</h3>
+          
+    </div>
+
+</div>
+
+</div>
+
