@@ -1,0 +1,53 @@
+<!--This section has info related to the game-->
+<div class="hidden-info">
+    <button id="start">Start Game</button>
+    <button id="rotate" (click)="rotate()">Rotate Your Ships</button>
+    <h3 id="whose-go">Your Go</h3>
+    <h3 id="info"></h3>
+  </div>
+  
+  <!--In this part we have the display of the ships-->
+  <div class="grid-display" cdkDropList>
+  
+    <!--Destroyer Ship-->
+    <div [ngClass]="isHorizontal ? 'ship destroyer-container' : 'ship destroyer-container-vertical'" cdkDrag>
+      <div id="destroyer-0"></div>
+      <div id="destroyer-1"></div>
+    </div>
+  
+    <!--Submarine Ship-->
+    <div [ngClass]="isHorizontal ? 'ship submarine-container' : 'ship submarine-container-vertical'" cdkDrag>
+      <div id="submarine-0"></div>
+      <div id="submarine-1"></div>
+      <div id="submarine-2"></div>
+    </div>
+  
+    <!--Battleship Ship-->
+    <div [ngClass]="isHorizontal ? 'ship battleship-container' : 'ship battleship-container-vertical'" cdkDrag>
+      <div id="battleship-0"></div>
+      <div id="battleship-1"></div>
+      <div id="battleship-2"></div>
+      <div id="battleship-3"></div>
+    </div>
+  </div>
+  
+  <!--Game grid:
+      Here we create a div that holds a set number of divs that act like the grid tiles or
+      squares. We use ngstyle for changing the dimensions of the holder div. To create the
+      squares we use *ngFor using the squeares list that is based upon the width and height
+      of the game grid-->
+  <div
+        class="grid-user"
+       [ngStyle]="
+       {'width.px': width * 40,
+        'height.px': height * 40}">
+    <div *ngFor="let s of squares; let i = index"
+         #i
+         (click)="clicked($event)"
+         [ngStyle]="{'backgroundColor': baseColor}"
+         style="height: 40px;
+                width: 40px;
+                box-sizing: border-box;
+                border: 1px solid red"
+         id="{{s}}"></div>
+  </div>
