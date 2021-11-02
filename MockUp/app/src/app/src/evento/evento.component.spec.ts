@@ -22,4 +22,14 @@ describe('EventoComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should pass verification', () => {
+    component.Verificar('a','a','a','a','a','a','a','a','a','a','a');
+    expect(component.token).not.toEqual("FAVOR INGRESE LOS DATOS COMPLETOS");
+  })
+
+  it('should not pass verification', () => {
+    component.Verificar('a','','a','','a','','a','','a','','a');
+    expect(component.token).toEqual("FAVOR INGRESE LOS DATOS COMPLETOS");
+  })
 });

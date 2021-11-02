@@ -33,19 +33,17 @@ export class EventoComponent implements OnInit {
 
   Verificar(partida:string, h_inicio:string, f_inicio:string, h_final:string, f_final:string,
             pais:string, localidad:string, codigo:string, filas:string, columnas:string, tiempo:string ): void{
-      
+
       this.informacion = partida + h_inicio + f_inicio + h_final + f_final + pais + localidad +filas + columnas + tiempo;
 
-      if(partida == "" || h_inicio == "" || f_inicio == "" || h_final == "" || f_final== "" 
+      if(partida == "" || h_inicio == "" || f_inicio == "" || h_final == "" || f_final== ""
         || pais =="" || localidad == "" || codigo == "" || filas == "" || columnas == "" ){
-        
+
           this.token = "FAVOR INGRESE LOS DATOS COMPLETOS";
       }
       else{
         this.token = "Código de evento " + Math.random().toString(15).substr(2, 6);
       }
-      
+
   }
-
-
 }
