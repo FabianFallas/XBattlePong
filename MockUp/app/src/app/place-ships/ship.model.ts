@@ -1,5 +1,6 @@
 export class Ship {
-    constructor(public length: number,
+    constructor(public name: string,
+                public length: number,
                 public color: string) {
     }
   }

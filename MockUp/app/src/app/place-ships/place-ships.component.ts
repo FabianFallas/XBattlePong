@@ -21,9 +21,11 @@ rightMostSquares: number[] = [];
 // Variable used for rotating the ships on their display and when placing them in the grid
 isHorizontal: boolean = true;
 // Variable used to set the ships on the squares
-isShipSelected: boolean = true;
+isShipSelected: boolean = false;
+// List for storing the available ships
+ships: Ship[] = [];
 // Variable for storing the info of a selected ship for putting on the grid
-selectedShip: Ship = new Ship(3,'red');
+selectedShip: Ship = new Ship('',0,'');
 
 constructor() {
 }
@@ -32,71 +34,114 @@ ngOnInit(): void {
   // We set the main color of the squares
   this.baseColor = 'aquamarine';
 
-  // Here we set the proportions of the grid
-  this.width = 8;
-  this.height = 8;
+  // We set the proportions of the grid
+  this.width = 7;
+  this.height = 5;
 
-  // We calculate the right most squares of for defining boundaries
+  // We filled the available ships list with the ships
+  this.ships.push(new Ship('destroyer',3,'orange'))
+  this.ships.push(new Ship('submarine',4,'blue'))
+  this.ships.push(new Ship('battleship',5,'red'))
+
+  // We calculate the right most squares of the grid, used for defining boundaries
   for (let f = 1; f <= this.height; f++){
     this.rightMostSquares.push(this.width*f)
   }
 
-  // Here we filled the list with the amount of tiles the grid will have
+  // We filled the square list with the amount of tiles the grid will have
   for (let s = 1; s <= this.width * this.height; s++) {
     this.squares.push(s);
   }
 }
 
-// This function changes the state of isHorizontal when is called, it is called by a button
+/**
+ * This method changes the state of the isHorizontal variable when is called,
+ * it is called by a button and if a ship is being selected the change cannot be made
+ */
 rotate(): void {
-  this.isHorizontal = !this.isHorizontal;
+  if (!this.isShipSelected) {
+    this.isHorizontal = !this.isHorizontal;
+  }
 }
 
-// Work in progress, is called whenever a tile is clicked, should have multiple conditions depending
-// on the current state of the game
-clicked(e: any): void {
+/**
+ * This method is called when a ship is clicked, indicates the system that a specific ship is being selected
+ * @param s event of the mouse click on the ship
+ */
+shipClicked(s: any): void {
+  // We get the id of the clicked ship
+  let id = s.target.id.toString();
+
+  // We inform that a ship was selected
+  this.isShipSelected = true;
+
+  // We search in the list of ships for the selected ship
+  for (let i = 0; i < this.ships.length; i++) {
+    if (this.ships[i].name == id) {
+      this.selectedShip = this.ships[i];
+    }
+  }
+  console.log(this.selectedShip)
+}
+
+/**
+ * This method is called whenever a tile is clicked, is used for placing the ships on the grid
+ * @param e event of the mouse click on the square
+ */
+squareClicked(e: any): void {
   // We get the id of the tile that was clicked
   let id: string = e.target.id.toString();
-
-  console.log(id)
 
   // If a ship is selected and the position is correct we put it on the grid
   if (this.isShipSelected && this.isPositionCorrect(id)) {
     // We check if the placement of the ship is horizontal or vertical
     if (this.isHorizontal) {
+
       for (let i = 0; i < this.selectedShip.length; i++) {
-          let currentId = Number(id);
-          currentId += i;
-          console.log(currentId)
-          document.getElementById(currentId.toString())!.style.backgroundColor = this.selectedShip.color;
+        let currentId = Number(id);
+        currentId += i;
+
+        console.log(currentId)
+
+        document.getElementById(currentId.toString())!.style.backgroundColor = this.selectedShip.color;
       }
     }
     // Code for putting a vertical ship
     else {
-      // WIP
+      // TO DO
     }
+    this.isShipSelected = false;
   }
-  if (!this.isPositionCorrect(id)) {
+  else {
     alert('Posicion invalida para colocar esta nave')
   }
 }
 
-// Given a square id checks if the selected ship can be placed on that position
-isPositionCorrect(id:any): boolean {
-
-  // Horizontal checks
+/**
+ * This method checks if the selected ship can be placed on that position
+ * If the position of the ship goes against the rules the method returns false, if not returns true
+ * @param id of the square to be checked
+ */
+isPositionCorrect(id: any): boolean {
+  // Horizontal positioning
   if (this.isHorizontal) {
 
+    // We visit the squares connected from the starting position
     for (let i = 0; i < this.selectedShip.length; ++i) {
       let currentId = Number(id);
       currentId += i;
 
+      // Checks
       if (currentId > this.squares.length ||
         document.getElementById(currentId.toString())!.style.backgroundColor !== this.baseColor ||
         (this.rightMostSquares.includes(currentId) && i + 1 != this.selectedShip.length)) {
         return false;
       }
     }
+  }
+  // Vertical positioning
+  else {
+    // TO DO
   }
   return true;
   }
