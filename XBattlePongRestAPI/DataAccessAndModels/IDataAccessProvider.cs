@@ -15,5 +15,14 @@ namespace XBattlePongRestAPI.DataAccessAndModels
         bool DeleteEventosRecord(string id);
         Eventos GetEventosSingleRecord(string id);
         List<Eventos> GetEventosRecords();
+
+        /*
+        Description: CRUD Operations for partidas 
+        */
+        Partidas AddPartidasRecord(Partidas partidas);
+        void UpdatePartidasRecord(Partidas partidas);
+        bool DeletePatidasRecord(string id);
+        Partidas GetPartidasSingleRecord(string id);
+        List<Partidas> GetPartidasRecords();
     }
 }

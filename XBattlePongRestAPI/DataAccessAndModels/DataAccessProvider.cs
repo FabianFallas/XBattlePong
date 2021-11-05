@@ -43,19 +43,43 @@ namespace XBattlePongRestAPI.DataAccessAndModels
 
         public void UpdateEventosRecord(Eventos evento)
         {
-            /*
-            var eventoToBeUpdated = _xBattlePongDbContext.Eventos.Find(evento.codigo);
-            if (eventoToBeUpdated != null)
+            _xBattlePongDbContext.Eventos.Update(evento);
+            _xBattlePongDbContext.SaveChanges();
+        }
+
+        public Partidas AddPartidasRecord(Partidas partidas)
+        {
+            _xBattlePongDbContext.Partidas.Add(partidas);
+            _xBattlePongDbContext.SaveChanges();
+            return partidas;
+        }
+
+        public void UpdatePartidasRecord(Partidas partidas)
+        {
+            _xBattlePongDbContext.Partidas.Update(partidas);
+            _xBattlePongDbContext.SaveChanges();
+        }
+
+        public bool DeletePatidasRecord(string id)
+        {
+            var partidasToBeDeleted = _xBattlePongDbContext.Partidas.Find(id);
+            if (partidasToBeDeleted != null)
             {
-                eventoToBeUpdated = evento;
-                _xBattlePongDbContext.Eventos.Update(eventoToBeUpdated);
+                _xBattlePongDbContext.Partidas.Remove(partidasToBeDeleted);
                 _xBattlePongDbContext.SaveChanges();
                 return true;
             }
             return false;
-            */
-            _xBattlePongDbContext.Eventos.Update(evento);
-            _xBattlePongDbContext.SaveChanges();
+        }
+
+        public Partidas GetPartidasSingleRecord(string id)
+        {
+            return _xBattlePongDbContext.Partidas.SingleOrDefault(x => x.PartidasID == id);
+        }
+
+        public List<Partidas> GetPartidasRecords()
+        {
+            return _xBattlePongDbContext.Partidas.ToList();
         }
     }
 }

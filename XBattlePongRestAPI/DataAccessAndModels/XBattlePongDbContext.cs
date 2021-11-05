@@ -14,5 +14,7 @@ namespace XBattlePongRestAPI.DataAccessAndModels
                 
         }
         public DbSet<Eventos> Eventos { get; set; }
+        public DbSet<Partidas> Partidas { get; set;}
+        public DbSet<ReglasDelEvento> ReglasDelEvento { get; set; }
     }
 }
