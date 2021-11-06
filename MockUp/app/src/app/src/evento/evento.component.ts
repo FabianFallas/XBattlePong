@@ -51,7 +51,7 @@ export class EventoComponent implements OnInit {
         let msg = '{"nombrePartida": "' + partida +  '","fechaDeInicio": "' + h_inicio + '","horaDeInicioSTR": "' + h_final + '","fechaDeFinalizacion": "' + f_inicio + '","horaDeFinalizacionSTR": "' + f_final +'","pais": "' + pais +'","localidad": "' + localidad + '","codigo": "' + codigo +'","nombreDeOrganizador": "Payo"}';
         console.log(msg);
         /*
-        this.service.Post(this.msg, 'https://').subscribe(res=> {
+        this.service.Post(this.msg, 'http://localhost:5000/api/Eventos').subscribe(res=> {
         console.log(res)
         })
         */
