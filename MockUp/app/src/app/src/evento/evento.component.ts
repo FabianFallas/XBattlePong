@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import * as moment from 'moment'
+import { ConnectionService } from '../../connection.service';
 
 
 @Component({
@@ -25,10 +26,13 @@ export class EventoComponent implements OnInit {
   informacion = "";
   mensaje = "";
 
+
   constructor() { }
+  //constructor(private service:ConnectionService) { }
 
   ngOnInit(): void {
   }
+
 
 
   Verificar(partida:string, h_inicio:string, f_inicio:string, h_final:string, f_final:string,
@@ -43,6 +47,13 @@ export class EventoComponent implements OnInit {
       }
       else{
         this.token = "Código de evento " + Math.random().toString(15).substr(2, 6);
+        console.log(this.formularioevento);
+        /*
+        this.service.Post(this.formularioevento.value, 'https://').subscribe(res=> {
+        console.log(res)
+      })
+*/
+
       }
       
   }
