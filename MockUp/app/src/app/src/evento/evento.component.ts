@@ -47,16 +47,15 @@ export class EventoComponent implements OnInit {
       }
       else{
         this.token = "Código de evento " + Math.random().toString(15).substr(2, 6);
-        console.log(this.formularioevento);
+        
+        let msg = '{"nombrePartida": "' + partida +  '","fechaDeInicio": "' + h_inicio + '","horaDeInicioSTR": "' + h_final + '","fechaDeFinalizacion": "' + f_inicio + '","horaDeFinalizacionSTR": "' + f_final +'","pais": "' + pais +'","localidad": "' + localidad + '","codigo": "' + codigo +'","nombreDeOrganizador": "Payo"}';
+        console.log(msg);
         /*
-        this.service.Post(this.formularioevento.value, 'https://').subscribe(res=> {
+        this.service.Post(this.msg, 'https://').subscribe(res=> {
         console.log(res)
-      })
-*/
+        })
+        */
 
-      }
-      
+      }   
   }
-
-
 }
