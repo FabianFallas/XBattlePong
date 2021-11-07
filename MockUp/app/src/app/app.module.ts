@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
 import { PartidaComponent } from './src/partida/partida.component';
 
-
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -25,7 +25,8 @@ import { PartidaComponent } from './src/partida/partida.component';
     AppRoutingModule,
     MatCardModule,
     ReactiveFormsModule,
-    MatRadioModule
+    MatRadioModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

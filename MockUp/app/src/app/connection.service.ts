@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,11 @@ export class ConnectionService {
 
   // POSTs something in the server
   Post(val:any,postURL: string){
-    return this.http.post<any>(postURL,val);
+    return this.http.post<any>(postURL,val,{
+      headers: new HttpHeaders({
+        'Content-Type':'application/json'
+      })
+    });
   }
 
   // PUT allows to update a value via an id
