@@ -46,16 +46,17 @@ export class EventoComponent implements OnInit {
           this.token = "FAVOR INGRESE LOS DATOS COMPLETOS";
       }
       else{
-        this.token = "Código de evento " + Math.random().toString(15).substr(2, 6);
+        let tokenRand = Math.random().toString(15).substr(2, 6);
+        this.token = "Código de evento " + tokenRand;
 
-        let msg = '{"nombrePartida": "' + partida +  '","fechaDeInicio": "' + f_inicio + '","horaDeInicioSTR": "' + h_inicio + '","fechaDeFinalizacion": "' + f_final + '","horaDeFinalizacionSTR": "' + h_final +'","pais": "' + pais +'","localidad": "' + localidad + '","codigo": "' + codigo +'","nombreDeOrganizador": "' + nombreDeOrganizador + '"}';
+        let msg = '{"nombrePartida": "' + partida +  '","fechaDeInicio": "' + f_inicio + '","horaDeInicioSTR": "' + h_inicio + '","fechaDeFinalizacion": "' + f_final + '","horaDeFinalizacionSTR": "' + h_final +'","pais": "' + pais +'","localidad": "' + localidad + '","codigoDeEvento": "' + codigo +'","nombreDeOrganizador": "' + nombreDeOrganizador +'","token": "' + tokenRand+ '"}';
         console.log(msg);
 
         this.service.Post(msg, 'http://localhost:5000/api/Eventos').subscribe(res=> {
         console.log(res)
         })
 
-        let msg_2 = '{"Filas":' + filas + ',"Columnas":' + columnas + ',"TipoDeJugabilidad":"Individual'  + '","CantidadDeBarcos":' + 5 + ',"TiempoDeDisparo":' + tiempo + ',"codigoDeEvento_fk":"' + this.token + '"}';
+        let msg_2 = '{"Filas":' + filas + ',"Columnas":' + columnas + ',"TipoDeJugabilidad":"Individual'  + '","CantidadDeBarcos":' + 5 + ',"TiempoDeDisparo":' + tiempo + ',"codigoDeEvento_fk":"' + codigo + '"}';
 
         this.service.Post(msg_2, 'http://localhost:5000/api/ReglasDelEvento').subscribe(res=> {
         console.log(res)
