@@ -26,8 +26,9 @@ namespace XBattlePongRestAPI.DataAccessAndModels
         public string pais { get; set; }
         public string localidad { get; set;}
         [Key]
-        public string codigo { get; set;}
+        public string codigoDeEvento { get; set;}
         public string nombreDeOrganizador { get; set; }
+        public string token { get; set; }
 
     }
 }

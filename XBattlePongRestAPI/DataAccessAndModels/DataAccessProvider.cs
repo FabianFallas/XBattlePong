@@ -11,7 +11,7 @@ namespace XBattlePongRestAPI.DataAccessAndModels
         public DataAccessProvider(XBattlePongDbContext context) 
         {
             _xBattlePongDbContext = context;   
-        }
+        } 
         public Eventos AddEventosRecord(Eventos evento)
         {
             _xBattlePongDbContext.Eventos.Add(evento);
@@ -33,7 +33,7 @@ namespace XBattlePongRestAPI.DataAccessAndModels
 
         public Eventos GetEventosSingleRecord(string codigo)
         {
-            return _xBattlePongDbContext.Eventos.SingleOrDefault(x => x.codigo == codigo);
+            return _xBattlePongDbContext.Eventos.SingleOrDefault(x => x.codigoDeEvento == codigo);
         }
 
         public List<Eventos> GetEventosRecords()
@@ -80,6 +80,24 @@ namespace XBattlePongRestAPI.DataAccessAndModels
         public List<Partidas> GetPartidasRecords()
         {
             return _xBattlePongDbContext.Partidas.ToList();
+        }
+
+        public string GetReglasDelEventoIDByCodigoDeEvento(string codigoDeEvento)
+        {
+            return _xBattlePongDbContext.ReglasDelEvento.Where(
+                cod => cod.codigoDeEvento_fk == codigoDeEvento
+                ).Select(
+                regID => regID.ReglaDelEventoID
+                ).SingleOrDefault(); ;
+        }
+        public bool PartidasExists(string id)
+        {
+            return _xBattlePongDbContext.Partidas.Any(e => e.PartidasID == id);
+        }
+
+        public ReglasDelEvento GetReglasDelEventoByID(string id)
+        {
+            return _xBattlePongDbContext.ReglasDelEvento.Find(id);
         }
     }
 }

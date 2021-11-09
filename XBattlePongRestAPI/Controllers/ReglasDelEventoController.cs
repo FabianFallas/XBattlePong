@@ -43,33 +43,23 @@ namespace XBattlePongRestAPI.Controllers
         // PUT: api/ReglasDelEvento/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutReglasDelEvento(string id, [FromBody] ReglasDelEvento reglasDelEvento)
+        [HttpPut]
+        public async Task<IActionResult> PutReglasDelEvento([FromBody] ReglasDelEvento reglasDelEvento)
         {
-            if (id != reglasDelEvento.ReglaDelEventoID)
-            {
-                return BadRequest();
-            }
-
+           
             _context.Entry(reglasDelEvento).State = EntityState.Modified;
 
             try
             {
                 await _context.SaveChangesAsync();
+                return Ok("Updated!");
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ReglasDelEventoExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+               throw;
+            
             }
 
-            return NoContent();
         }
 
         // POST: api/ReglasDelEventoes

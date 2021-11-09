@@ -16,6 +16,7 @@ namespace XBattlePongRestAPI.DataAccessAndModels
         public string TipoDeJugabilidad { get; set; }
         public int CantidadDeBarcos { get; set; }
         public int TiempoDeDisparo { get; set; }
+        public string codigoDeEvento_fk { get; set; }
 
 
 

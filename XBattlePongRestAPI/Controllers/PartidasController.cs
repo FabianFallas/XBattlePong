@@ -13,25 +13,25 @@ namespace XBattlePongRestAPI.Controllers
     [ApiController]
     public class PartidasController : ControllerBase
     {
-        private readonly XBattlePongDbContext _context;
+        private readonly IDataAccessProvider _dataAccessProvider;
 
-        public PartidasController(XBattlePongDbContext context)
+        public PartidasController(IDataAccessProvider dataAccessProvider)
         {
-            _context = context;
+            _dataAccessProvider = dataAccessProvider;
         }
 
         // GET: api/Partidas
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Partidas>>> GetPartidas()
+        public IEnumerable<Partidas> GetPartidas()
         {
-            return await _context.Partidas.ToListAsync();
+            return  _dataAccessProvider.GetPartidasRecords();
         }
 
         // GET: api/Partidas/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Partidas>> GetPartidas(string id)
+        public ActionResult<Partidas>  GetPartidas(string id)
         {
-            var partidas = await _context.Partidas.FindAsync(id);
+            var partidas = _dataAccessProvider.GetPartidasSingleRecord(id);
 
             if (partidas == null)
             {
@@ -41,90 +41,65 @@ namespace XBattlePongRestAPI.Controllers
             return partidas;
         }
 
+        // GET: api/Partidas/GetReglasDelEvento/{codigoDeEvento}
+        [HttpGet("GetReglasDelEvento/{codigoDeEvento}")]
+        public ActionResult<ReglasDelEvento> GetReglasDelEvento(string codigoDeEvento)
+        {
+            string reglasDelEventoID = _dataAccessProvider.GetReglasDelEventoIDByCodigoDeEvento(codigoDeEvento);
+            var reglas = _dataAccessProvider.GetReglasDelEventoByID(reglasDelEventoID);
+
+            if (reglas == null)
+            {
+                return NotFound();
+            }
+
+            return reglas;
+        }
         // PUT: api/Partidas/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutPartidas(string id, Partidas partidas)
+        [HttpPut]
+        public ActionResult PutPartidas([FromBody]Partidas partidas)
         {
-            if (id != partidas.PartidasID)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(partidas).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PartidasExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            partidas.ReglaDelEventoID_fk = _dataAccessProvider.GetReglasDelEventoIDByCodigoDeEvento(partidas.codigoDeEvento);
+            partidas.PosicionamientoBarcosJ1 = string.Join(",", partidas.PosicionamientoBarcosJ1List.Select(item => item.ToString()).ToArray());
+            partidas.PosicionamientoBarcosJ2 = string.Join(",", partidas.PosicionamientoBarcosJ2List.Select(item => item.ToString()).ToArray());
+            _dataAccessProvider.UpdatePartidasRecord(partidas);
+             return Ok("Updated!");
         }
 
         // POST: api/Partidas
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Partidas>> PostPartidas([FromBody]Partidas partidas)
+        public ActionResult<Partidas> PostPartidas([FromBody]Partidas partidas)
         {
             Guid partidaID = Guid.NewGuid();
-            Guid reglasDelEventoID = Guid.NewGuid();
+     
             partidas.PartidasID = partidaID.ToString();
-            partidas.ReglasDelEventoID = reglasDelEventoID.ToString();
+            partidas.ReglaDelEventoID_fk = _dataAccessProvider.GetReglasDelEventoIDByCodigoDeEvento(partidas.codigoDeEvento);
 
             partidas.PosicionamientoBarcosJ1 = string.Join(",", partidas.PosicionamientoBarcosJ1List.Select(item => item.ToString()).ToArray());
             partidas.PosicionamientoBarcosJ2 = string.Join(",", partidas.PosicionamientoBarcosJ2List.Select(item => item.ToString()).ToArray());
-            _context.Partidas.Add(partidas);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (PartidasExists(partidas.PartidasID))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            _dataAccessProvider.AddPartidasRecord(partidas);
             return CreatedAtAction("GetPartidas", new { id = partidas.PartidasID }, partidas);
         }
 
         // DELETE: api/Partidas/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Partidas>> DeletePartidas(string id)
+        public ActionResult<Partidas> DeletePartidas(string id)
         {
-            var partidas = await _context.Partidas.FindAsync(id);
-            if (partidas == null)
+            bool partidas = _dataAccessProvider.PartidasExists(id);
+            if (!partidas)
             {
                 return NotFound();
             }
 
-            _context.Partidas.Remove(partidas);
-            await _context.SaveChangesAsync();
+            _dataAccessProvider.DeletePatidasRecord(id);
 
-            return partidas;
+            return Ok("Successfully deleted!");
         }
 
-        private bool PartidasExists(string id)
-        {
-            return _context.Partidas.Any(e => e.PartidasID == id);
-        }
+       
     }
 }

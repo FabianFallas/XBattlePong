@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using XBattlePongRestAPI.DataAccessAndModels;
 
 namespace XBattlePongRestAPI.Controllers
@@ -30,6 +31,7 @@ namespace XBattlePongRestAPI.Controllers
         [HttpPost]
         public IActionResult CreateEvento([FromBody] Eventos evento)
         {
+            Console.WriteLine("Esto:" + JsonConvert.SerializeObject(evento));
             if (ModelState.IsValid) 
             {
                 evento.horaDeInicio = TimeSpan.Parse(evento.horaDeInicioSTR);
