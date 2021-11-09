@@ -148,14 +148,14 @@
 
           <div class = "evento" >
             
-            <mat-radio-group>
+            <mat-radio-group id="tipoDePartida" #tipoDePartida>
 
               <div>
-                <mat-radio-button class= "box" mat-button   style="font-family: Arial, Helvetica, sans-serif" value="1">Individual</mat-radio-button>
+                <mat-radio-button class= "box" mat-button   style="font-family: Arial, Helvetica, sans-serif" value="Individual">Individual</mat-radio-button>
               </div>
 
               <div>
-                <mat-radio-button class= "box" mat-button  style="font-family: Arial, Helvetica, sans-serif" value="2">Multijugador</mat-radio-button>
+                <mat-radio-button class= "box" mat-button  style="font-family: Arial, Helvetica, sans-serif" value="Multijugador">Multijugador</mat-radio-button>
               </div>
               
             </mat-radio-group>
@@ -172,7 +172,7 @@
 
       <button class="boton"  (click) = "Verificar(nombrepartida.value,
       fechai.value, horai.value, fechaf.value, horaf.value, pais.value, localidad.value,
-       codigo.value, filas.value, columnas.value, disparo.value)" >Confirmar </button>
+       codigo.value, filas.value, columnas.value, disparo.value, nombreorg.value, tipoDePartida.value)" >Confirmar </button>
 
       <h3  class="labelt" style = "text-align: center;">{{token}}</h3>
           
