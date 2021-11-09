@@ -4,13 +4,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EventoComponent } from './src/evento/evento.component';
 
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { PartidaComponent } from './src/partida/partida.component';
-import { PlaceShipsComponent } from './place-ships/place-ships.component';
+import { PlaceShipsComponent } from './src/place-ships/place-ships.component';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -20,7 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     EventoComponent,
     PartidaComponent,
-    PlaceShipsComponent
+    PlaceShipsComponent,
   ],
   imports: [
     BrowserModule,

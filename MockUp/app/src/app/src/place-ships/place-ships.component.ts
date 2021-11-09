@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Ship } from './ship.model';
+import { Ship } from '../models/ship.model';
 
 @Component({
   selector: 'app-place-ships',
