@@ -13,6 +13,8 @@ export class PlaceShipsComponent implements OnInit {
 baseColor: string = '';
 // List used for the creating of the grid tiles or squares
 squares: number[] = [];
+// List of the positions of were the ships are located
+squaresOccupied: number[] = [];
 // Width of the game grid
 width: number = 0;
 // Height of the game grid
@@ -102,8 +104,8 @@ squareClicked(e: any): void {
         let currentId = Number(id);
         currentId += i;
 
-        console.log(currentId)
-
+        // We save the occupied position to a list and change the color of the square to the one of the ship
+        this.squaresOccupied.push(currentId);
         document.getElementById(currentId.toString())!.style.backgroundColor = this.selectedShip.color;
       }
     }

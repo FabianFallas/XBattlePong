@@ -6,7 +6,7 @@ import { Rules } from './src/models/rules.model';
   providedIn: 'root'
 })
 export class ConnectionService {
-  rules: Rules;
+  rules: Rules = new Rules('none',8,8,'Individual',5,30,'none');
 
   constructor(private http: HttpClient) { }
 
