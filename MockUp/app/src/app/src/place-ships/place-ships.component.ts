@@ -116,7 +116,9 @@ squareClicked(e: any): void {
     this.isShipSelected = false;
   }
   else {
-    alert('Posicion invalida para colocar esta nave')
+    if (this.isShipSelected) {
+      alert('Posicion invalida para colocar esta nave')
+    }
   }
 }
 
