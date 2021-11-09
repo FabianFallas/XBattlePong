@@ -1,0 +1,87 @@
+.container {
+    display: flex;
+  }
+  
+  .grid-user {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: aqua;
+    margin: 20px;
+  }
+  
+  .grid div {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .grid-computer {
+    width: 400px;
+    height: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: greenyellow;
+    margin: 20px;
+  }
+  
+  .grid-display {
+    width: 400px;
+    height: 400px;
+    margin: 20px;
+    background-color: bisque;
+  }
+  
+  .destroyer-container {
+    width: 80px;
+    height: 40px;
+    background-color: orange;
+    margin: 10px;
+    display: flex;
+  }
+  
+  .destroyer-container-vertical {
+    width: 40px;
+    height: 80px;
+    background-color: orange;
+    margin: 10px;
+    display: flex;
+  }
+  
+  .submarine-container {
+    width: 120px;
+    height: 40px;
+    background-color: blue;
+    margin: 10px;
+    display: flex;
+  }
+  
+  .submarine-container-vertical {
+    width: 40px;
+    height: 120px;
+    background-color: blue;
+    margin: 10px;
+    display: flex;
+    /*flex-wrap: wrap;*/
+  }
+  
+  .battleship-container {
+    width: 160px;
+    height: 40px;
+    background-color: red;
+    margin: 10px;
+    display: flex;
+  }
+  
+  .battleship-container-vertical {
+    width: 40px;
+    height: 160px;
+    background-color: red;
+    margin: 10px;
+    display: flex;
+    /*flex-wrap: wrap;*/
+  }
+  
+  .ship div {
+    width: 40px;
+    height: 40px;
+  }
+  

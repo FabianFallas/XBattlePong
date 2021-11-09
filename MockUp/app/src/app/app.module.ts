@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
 import { PartidaComponent } from './src/partida/partida.component';
+import { PlaceShipsComponent } from './place-ships/place-ships.component';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -18,7 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     AppComponent,
     EventoComponent,
-    PartidaComponent
+    PartidaComponent,
+    PlaceShipsComponent
   ],
   imports: [
     BrowserModule,
