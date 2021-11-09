@@ -23,6 +23,7 @@ export class PartidaComponent implements OnInit {
       response => {
           console.log(response);
           this.eventRules =  response;
+          this.service.rules = this.eventRules;
           console.log(this.eventRules);
       }
     );
