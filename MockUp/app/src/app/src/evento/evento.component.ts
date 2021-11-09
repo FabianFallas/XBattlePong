@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {MatRadioModule} from '@angular/material'
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import * as moment from 'moment'
 import { ConnectionService } from '../../connection.service';
@@ -36,7 +37,7 @@ export class EventoComponent implements OnInit {
 
 
   Verificar(partida:string, f_inicio:string, h_inicio:string, f_final:string, h_final:string,
-            pais:string, localidad:string, codigo:string, filas:string, columnas:string, tiempo:string, nombreDeOrganizador:string, TipoDeJugabilidad: string): void{
+            pais:string, localidad:string, codigo:string, filas:string, columnas:string, tiempo:string, nombreDeOrganizador:string): void{
 
       this.informacion = partida + h_inicio + f_inicio + h_final + f_final + pais + localidad +filas + columnas + tiempo;
 
@@ -55,7 +56,7 @@ export class EventoComponent implements OnInit {
         console.log(res)
         })
 
-        let msg_2 = '{"Filas":' + filas + ',"Columnas":' + columnas + ',"TipoDeJugabilidad":"' + TipoDeJugabilidad + '","CantidadDeBarcos":' + 5 + ',"TiempoDeDisparo":' + tiempo + ',"codigoDeEvento_fk":"' + this.token + '"}';
+        let msg_2 = '{"Filas":' + filas + ',"Columnas":' + columnas + ',"TipoDeJugabilidad":"Individual'  + '","CantidadDeBarcos":' + 5 + ',"TiempoDeDisparo":' + tiempo + ',"codigoDeEvento_fk":"' + this.token + '"}';
 
         this.service.Post(msg_2, 'http://localhost:5000/api/ReglasDelEvento').subscribe(res=> {
         console.log(res)
