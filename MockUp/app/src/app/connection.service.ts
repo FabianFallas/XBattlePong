@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Rules } from './src/models/rules.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConnectionService {
+  rules: Rules;
 
   constructor(private http: HttpClient) { }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConnectionService } from 'src/app/connection.service';
 import { Ship } from '../models/ship.model';
 
 @Component({
@@ -27,7 +28,7 @@ ships: Ship[] = [];
 // Variable for storing the info of a selected ship for putting on the grid
 selectedShip: Ship = new Ship('',0,'');
 
-constructor() {
+constructor(private service: ConnectionService) {
 }
 
 ngOnInit(): void {
@@ -35,8 +36,8 @@ ngOnInit(): void {
   this.baseColor = 'aquamarine';
 
   // We set the proportions of the grid
-  this.width = 7;
-  this.height = 5;
+  this.width = this.service.rules.filas;
+  this.height = this.service.rules.columnas;
 
   // We filled the available ships list with the ships
   this.ships.push(new Ship('destroyer',3,'orange'))
