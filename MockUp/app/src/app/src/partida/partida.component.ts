@@ -8,7 +8,8 @@ import { Rules } from '../models/rules.model';
   styleUrls: ['./partida.component.css']
 })
 export class PartidaComponent implements OnInit {
-  eventRules = new Rules('',0,0,'',0,0,'')
+  showBoards: boolean = false;
+  eventRules = new Rules('',8,8,'',0,0,'')
   rootEventRulesGetURL:string = 'http://localhost:5000/api/Partidas/GetReglasDelEvento/'
 
   constructor(private service: ConnectionService) { }
@@ -21,11 +22,20 @@ export class PartidaComponent implements OnInit {
     console.log(url);
     this.service.Get(url).subscribe(
       response => {
-          console.log(response);
-          this.eventRules =  response;
-          this.service.rules = this.eventRules;
-          console.log(this.eventRules);
+        // We assign the eventRules to the response to fill the information
+        this.eventRules =  response;
+
+        // We save the rules on the serive for the other components to access
+        this.service.defaultRules = this.eventRules;
+
+        // We activate the place-ships component
+        this.showBoards = true;
       }
     );
+  }
+
+  updateTest(): void {
+    this.service.defaultRules = this.eventRules;
+    this.showBoards = true;
   }
 }

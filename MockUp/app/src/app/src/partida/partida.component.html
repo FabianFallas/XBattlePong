@@ -130,4 +130,6 @@
 
 </div>
 
-<app-place-ships></app-place-ships>
+<button (click)="updateTest()">Prueba</button>
+
+<app-place-ships *ngIf="showBoards"></app-place-ships>

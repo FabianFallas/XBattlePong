@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ConnectionService } from 'src/app/connection.service';
+import { Rules } from '../models/rules.model';
 import { Ship } from '../models/ship.model';
 
 @Component({
@@ -37,9 +39,9 @@ ngOnInit(): void {
   // We set the main color of the squares
   this.baseColor = 'aquamarine';
 
-  // We set the proportions of the grid
-  this.width = this.service.rules.filas;
-  this.height = this.service.rules.columnas;
+  // We set the proportions of the grid based on the rules
+  this.width = this.service.defaultRules.filas;
+  this.height = this.service.defaultRules.columnas;
 
   // We filled the available ships list with the ships
   this.ships.push(new Ship('destroyer',3,'orange'))
