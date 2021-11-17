@@ -13,8 +13,8 @@ namespace XBattlePongRestAPI.Controllers
     [ApiController]
     public class EventosController : ControllerBase
     {
-        private readonly IDataAccessProvider _dataAccessProvider;
-        public EventosController(IDataAccessProvider dataAccessProvider)
+        private readonly IEventosAccessProvider _dataAccessProvider;
+        public EventosController(IEventosAccessProvider dataAccessProvider)
         {
             _dataAccessProvider = dataAccessProvider;
         }

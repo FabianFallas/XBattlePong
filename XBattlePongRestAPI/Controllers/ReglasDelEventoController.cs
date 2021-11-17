@@ -13,25 +13,24 @@ namespace XBattlePongRestAPI.Controllers
     [ApiController]
     public class ReglasDelEventoController : ControllerBase
     {
-        private readonly XBattlePongDbContext _context;
-
-        public ReglasDelEventoController(XBattlePongDbContext context)
+        private readonly IReglasDelEventoAccessProvider _dataAccessProvider;
+        public ReglasDelEventoController(IReglasDelEventoAccessProvider dataAccessProvider)
         {
-            _context = context;
+            _dataAccessProvider = dataAccessProvider;
         }
 
         // GET: api/ReglasDelEvento
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ReglasDelEvento>>> GetReglasDelEventos()
+        public IEnumerable<ReglasDelEvento> GetReglasDelEvento()
         {
-            return await _context.ReglasDelEvento.ToListAsync();
+            return _dataAccessProvider.GetReglasDelEventoRecords();
         }
 
         // GET: api/ReglasDelEventoes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ReglasDelEvento>> GetReglasDelEvento(string id)
+        public ActionResult<ReglasDelEvento> GetPartidas(string id)
         {
-            var reglasDelEvento = await _context.ReglasDelEvento.FindAsync(id);
+            var reglasDelEvento = _dataAccessProvider.GetReglasDelEventoSingleRecord(id);
 
             if (reglasDelEvento == null)
             {
@@ -44,21 +43,10 @@ namespace XBattlePongRestAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut]
-        public async Task<IActionResult> PutReglasDelEvento([FromBody] ReglasDelEvento reglasDelEvento)
+        public ActionResult PutReglasDelEvento([FromBody] ReglasDelEvento reglasDelEvento)
         {
-           
-            _context.Entry(reglasDelEvento).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-                return Ok("Updated!");
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-               throw;
-            
-            }
+            _dataAccessProvider.UpdateReglasDelEventoRecord(reglasDelEvento);
+            return Ok("Updated!");
 
         }
 
@@ -66,49 +54,28 @@ namespace XBattlePongRestAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<ReglasDelEvento>> PostReglasDelEvento([FromBody] ReglasDelEvento reglasDelEvento)
+        public ActionResult<ReglasDelEvento> PostReglasDelEvento([FromBody] ReglasDelEvento reglasDelEvento)
         {
             Guid reglasDelEventoID = Guid.NewGuid();
             reglasDelEvento.ReglaDelEventoID = reglasDelEventoID.ToString();
-            _context.ReglasDelEvento.Add(reglasDelEvento);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (ReglasDelEventoExists(reglasDelEvento.ReglaDelEventoID))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            _dataAccessProvider.AddReglasDelEventoRecord(reglasDelEvento);
             return CreatedAtAction("GetReglasDelEvento", new { id = reglasDelEvento.ReglaDelEventoID }, reglasDelEvento);
         }
 
         // DELETE: api/ReglasDelEventoes/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ReglasDelEvento>> DeleteReglasDelEvento(string id)
+        public ActionResult<ReglasDelEvento> DeleteReglasDelEvento(string id)
         {
-            var reglasDelEvento = await _context.ReglasDelEvento.FindAsync(id);
-            if (reglasDelEvento == null)
+            bool reglasDelEvento = _dataAccessProvider.ReglasDelEventoExists(id);
+            if (!reglasDelEvento)
             {
                 return NotFound();
             }
 
-            _context.ReglasDelEvento.Remove(reglasDelEvento);
-            await _context.SaveChangesAsync();
+            _dataAccessProvider.DeleteReglasDelEventoRecord(id);
 
-            return reglasDelEvento;
+            return Ok("Successfully deleted!");
         }
 
-        private bool ReglasDelEventoExists(string id)
-        {
-            return _context.ReglasDelEvento.Any(e => e.ReglaDelEventoID == id);
-        }
     }
 }

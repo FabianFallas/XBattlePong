@@ -33,7 +33,9 @@ namespace XBattlePongRestAPI
 
             services.AddDbContextPool<XBattlePongDbContext>(options => options.UseSqlServer(
                 Configuration.GetConnectionString("XBattlePongDbConnection")));
-            services.AddScoped<IDataAccessProvider, DataAccessProvider>();
+            services.AddScoped<IEventosAccessProvider, EventosAccessProvider>();
+            services.AddScoped<IPartidasAccessProvider, PartidasAccessProvider>();
+            services.AddScoped<IReglasDelEventoAccessProvider, ReglasDelEventoAccessProvider>();
             services.AddControllers();
 
         }

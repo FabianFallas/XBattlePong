@@ -23,7 +23,7 @@ namespace XBattlePongRestAPI.DataAccessAndModels
         public int[] PosicionamientoBarcosJ1List { get; set; }
         [NotMapped]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public int[] PosicionamientoBarcosJ2List { get; set; }
+        public int?[] PosicionamientoBarcosJ2List { get; set; }
         public string PosicionamientoBarcosJ1{ get; set; }
         public string PosicionamientoBarcosJ2{ get; set; }
         public string ReglaDelEventoID_fk{ get; set; }

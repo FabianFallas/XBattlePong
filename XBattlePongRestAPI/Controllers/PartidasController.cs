@@ -13,9 +13,9 @@ namespace XBattlePongRestAPI.Controllers
     [ApiController]
     public class PartidasController : ControllerBase
     {
-        private readonly IDataAccessProvider _dataAccessProvider;
+        private readonly IPartidasAccessProvider _dataAccessProvider;
 
-        public PartidasController(IDataAccessProvider dataAccessProvider)
+        public PartidasController(IPartidasAccessProvider dataAccessProvider)
         {
             _dataAccessProvider = dataAccessProvider;
         }

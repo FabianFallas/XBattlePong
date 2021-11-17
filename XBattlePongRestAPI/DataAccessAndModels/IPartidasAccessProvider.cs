@@ -5,17 +5,8 @@ using System.Threading.Tasks;
 
 namespace XBattlePongRestAPI.DataAccessAndModels
 {
-    public interface IDataAccessProvider
+    public interface IPartidasAccessProvider
     {
-        /*
-      Description: CRUD Operations for events 
-      */
-        Eventos AddEventosRecord(Eventos evento);
-        void UpdateEventosRecord(Eventos evento);
-        bool DeleteEventosRecord(string id);
-        Eventos GetEventosSingleRecord(string id);
-        List<Eventos> GetEventosRecords();
-
         /*
         Description: CRUD Operations for partidas 
         */
