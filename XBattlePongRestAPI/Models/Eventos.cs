@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace XBattlePongRestAPI.DataAccessAndModels
+namespace XBattlePongRestAPI.Models
 {
     [Table("Eventos")]
     public class Eventos
@@ -28,7 +28,5 @@ namespace XBattlePongRestAPI.DataAccessAndModels
         [Key]
         public string codigoDeEvento { get; set;}
         public string nombreDeOrganizador { get; set; }
-        public string token { get; set; }
-
     }
 }

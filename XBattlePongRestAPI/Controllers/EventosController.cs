@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using XBattlePongRestAPI.DataAccessAndModels;
+using XBattlePongRestAPI.DataAccessAndDBContext;
+using XBattlePongRestAPI.Models;
+using XBattlePongRestAPI.Utils;
 
 namespace XBattlePongRestAPI.Controllers
 {
@@ -14,13 +16,26 @@ namespace XBattlePongRestAPI.Controllers
     public class EventosController : ControllerBase
     {
         private readonly IEventosAccessProvider _dataAccessProvider;
-        public EventosController(IEventosAccessProvider dataAccessProvider)
+        private readonly ITokenConEventoAccessProvider _tokenConEventoAccessProvider;
+        private TokenManager tokenManager = new TokenManager();
+        public EventosController(IEventosAccessProvider dataAccessProvider, ITokenConEventoAccessProvider tokenConEventoAccessProvider)
         {
             _dataAccessProvider = dataAccessProvider;
+            _tokenConEventoAccessProvider = tokenConEventoAccessProvider;
         }
         [HttpGet]
         public IEnumerable<Eventos> Get()
         {
+            
+            List<Eventos> eventosList = _dataAccessProvider.GetEventosRecords();
+            foreach (Eventos evento in eventosList)
+            {
+                if (_tokenConEventoAccessProvider.TokenConEventoExists(evento.codigoDeEvento)) {
+                    if (!tokenManager.isInEventDays(evento.fechaDeFinalizacion)) {
+                        _tokenConEventoAccessProvider.DeleteTokenConEventoRecord(evento.codigoDeEvento);
+                    }
+                }
+            }
             return _dataAccessProvider.GetEventosRecords();
         }
         [HttpGet("{codigo}")]
@@ -34,10 +49,10 @@ namespace XBattlePongRestAPI.Controllers
             Console.WriteLine("Esto:" + JsonConvert.SerializeObject(evento));
             if (ModelState.IsValid) 
             {
-                evento.horaDeInicio = TimeSpan.Parse(evento.horaDeInicioSTR);
-                evento.horaDeFinalizacion = TimeSpan.Parse(evento.horaDeFinalizacionSTR);
+                
                 _dataAccessProvider.AddEventosRecord(evento);
-                return Ok(evento);
+                TokenConEvento tokenConEvento = _tokenConEventoAccessProvider.AddTokenConEventoRecord(evento.codigoDeEvento);
+                return Ok(tokenConEvento);
             }
             return BadRequest("Bad information or format were introduced");
         }
@@ -54,8 +69,6 @@ namespace XBattlePongRestAPI.Controllers
         [HttpPut]
         public IActionResult UpdateEvento([FromBody] Eventos evento)
         {
-            evento.horaDeInicio = TimeSpan.Parse(evento.horaDeInicioSTR);
-            evento.horaDeFinalizacion = TimeSpan.Parse(evento.horaDeFinalizacionSTR);
             _dataAccessProvider.UpdateEventosRecord(evento);
             return Ok("Updated!");
         }

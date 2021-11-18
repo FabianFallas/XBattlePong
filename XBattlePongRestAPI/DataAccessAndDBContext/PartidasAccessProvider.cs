@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-namespace XBattlePongRestAPI.DataAccessAndModels
+using XBattlePongRestAPI.Models;
+namespace XBattlePongRestAPI.DataAccessAndDBContext
 {
     public class PartidasAccessProvider: IPartidasAccessProvider
     {
@@ -76,11 +76,19 @@ namespace XBattlePongRestAPI.DataAccessAndModels
                 cod => cod.codigoDeEvento_fk == codigoDeEvento
                 ).Select(
                 regID => regID.ReglaDelEventoID
-                ).SingleOrDefault(); ;
+                ).SingleOrDefault(); 
         }
         public ReglasDelEvento GetReglasDelEventoByID(string id)
         {
             return _xBattlePongDbContext.ReglasDelEvento.Find(id);
+        }
+        public List<Partidas> GetPartidasByToken(string token)
+        {
+            TokenConEvento tokenConEvento = _xBattlePongDbContext.TokenConEvento.Find(token);
+            string reglasDelEventoID = GetReglasDelEventoIDByCodigoDeEvento(tokenConEvento.codigoDeEvento_fk);
+            List<Partidas> partidasWithCodigoDeEventoList = _xBattlePongDbContext.Partidas.Where(
+                p => p.ReglaDelEventoID_fk == reglasDelEventoID).ToList();
+            return partidasWithCodigoDeEventoList;
         }
     }
 }

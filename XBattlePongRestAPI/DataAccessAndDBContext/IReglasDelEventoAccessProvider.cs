@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-namespace XBattlePongRestAPI.DataAccessAndModels
+using XBattlePongRestAPI.Models;
+namespace XBattlePongRestAPI.DataAccessAndDBContext
 {
     public interface IReglasDelEventoAccessProvider
     {

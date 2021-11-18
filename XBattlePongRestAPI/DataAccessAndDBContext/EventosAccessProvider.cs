@@ -2,18 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-namespace XBattlePongRestAPI.DataAccessAndModels
+using XBattlePongRestAPI.Models;
+using XBattlePongRestAPI.Utils;
+namespace XBattlePongRestAPI.DataAccessAndDBContext
 {
     public class EventosAccessProvider : IEventosAccessProvider
     {
         private XBattlePongDbContext _xBattlePongDbContext;
+        private Converter converter = new Converter();
         public EventosAccessProvider(XBattlePongDbContext context)
         {
             _xBattlePongDbContext = context;
         }
         public Eventos AddEventosRecord(Eventos evento)
         {
+
+            evento.horaDeInicio = converter.parseStrToTimeSpan(evento.horaDeInicioSTR);
+            evento.horaDeFinalizacion = converter.parseStrToTimeSpan(evento.horaDeFinalizacionSTR);
             _xBattlePongDbContext.Eventos.Add(evento);
             _xBattlePongDbContext.SaveChanges();
             return evento;
@@ -52,6 +57,8 @@ namespace XBattlePongRestAPI.DataAccessAndModels
 
         public void UpdateEventosRecord(Eventos evento)
         {
+            evento.horaDeInicio = converter.parseStrToTimeSpan(evento.horaDeInicioSTR);
+            evento.horaDeFinalizacion = converter.parseStrToTimeSpan(evento.horaDeFinalizacionSTR);
             _xBattlePongDbContext.Eventos.Update(evento);
             _xBattlePongDbContext.SaveChanges();
         }

@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using XBattlePongRestAPI.Models;
 
-
-namespace XBattlePongRestAPI.DataAccessAndModels
+namespace XBattlePongRestAPI.DataAccessAndDBContext
 {
     public class XBattlePongDbContext: DbContext
     {
@@ -16,5 +16,6 @@ namespace XBattlePongRestAPI.DataAccessAndModels
         public DbSet<Eventos> Eventos { get; set; }
         public DbSet<Partidas> Partidas { get; set;}
         public DbSet<ReglasDelEvento> ReglasDelEvento { get; set; }
+        public DbSet<TokenConEvento> TokenConEvento { get; set; }
     }
 }

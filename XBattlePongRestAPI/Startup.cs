@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using XBattlePongRestAPI.DataAccessAndModels;
+using XBattlePongRestAPI.DataAccessAndDBContext;
 
 namespace XBattlePongRestAPI
 {
@@ -36,6 +36,7 @@ namespace XBattlePongRestAPI
             services.AddScoped<IEventosAccessProvider, EventosAccessProvider>();
             services.AddScoped<IPartidasAccessProvider, PartidasAccessProvider>();
             services.AddScoped<IReglasDelEventoAccessProvider, ReglasDelEventoAccessProvider>();
+            services.AddScoped<ITokenConEventoAccessProvider, TokenConEventoAccessProvider>();
             services.AddControllers();
 
         }

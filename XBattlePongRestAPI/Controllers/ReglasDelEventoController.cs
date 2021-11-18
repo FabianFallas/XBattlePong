@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using XBattlePongRestAPI.DataAccessAndModels;
-
+using XBattlePongRestAPI.DataAccessAndDBContext;
+using XBattlePongRestAPI.Models;
 namespace XBattlePongRestAPI.Controllers
 {
     [Route("api/[controller]")]

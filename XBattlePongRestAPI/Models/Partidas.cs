@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json.Linq;
 using System.Text.Json.Serialization;
-namespace XBattlePongRestAPI.DataAccessAndModels
+namespace XBattlePongRestAPI.Models
 {
     [Table("Partidas")]
     public class Partidas
