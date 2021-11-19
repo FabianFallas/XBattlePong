@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XBattlePongRestAPI", "XBattlePongRestAPI.csproj", "{67CA0630-B3C6-4251-82D9-AE6AB66D506D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XBattlePongRestAPI", "XBattlePongRestAPI.csproj", "{67CA0630-B3C6-4251-82D9-AE6AB66D506D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "..\UnitTests\UnitTests.csproj", "{193EA3DA-CF31-429B-BFE5-8B446B72EEBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPIUnitTest", "..\WebAPIUnitTest\WebAPIUnitTest.csproj", "{18028F11-B2D5-479D-9EDE-51BBCE2C5BA2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{67CA0630-B3C6-4251-82D9-AE6AB66D506D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67CA0630-B3C6-4251-82D9-AE6AB66D506D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67CA0630-B3C6-4251-82D9-AE6AB66D506D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{193EA3DA-CF31-429B-BFE5-8B446B72EEBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{193EA3DA-CF31-429B-BFE5-8B446B72EEBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{193EA3DA-CF31-429B-BFE5-8B446B72EEBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{193EA3DA-CF31-429B-BFE5-8B446B72EEBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18028F11-B2D5-479D-9EDE-51BBCE2C5BA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18028F11-B2D5-479D-9EDE-51BBCE2C5BA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18028F11-B2D5-479D-9EDE-51BBCE2C5BA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18028F11-B2D5-479D-9EDE-51BBCE2C5BA2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

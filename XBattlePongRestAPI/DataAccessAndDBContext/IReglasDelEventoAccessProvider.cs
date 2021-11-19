@@ -10,7 +10,7 @@ namespace XBattlePongRestAPI.DataAccessAndDBContext
         /*
         Description: CRUD Operations for events 
         */
-        ReglasDelEvento AddReglasDelEventoRecord(ReglasDelEvento reglasDelEvento);
+        Task<ReglasDelEvento> AddReglasDelEventoRecord(ReglasDelEvento reglasDelEvento);
         void UpdateReglasDelEventoRecord(ReglasDelEvento reglasDelEvento);
         bool DeleteReglasDelEventoRecord(string id);
         ReglasDelEvento GetReglasDelEventoSingleRecord(string id);

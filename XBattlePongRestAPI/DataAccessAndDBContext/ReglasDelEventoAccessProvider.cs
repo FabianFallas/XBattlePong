@@ -12,10 +12,10 @@ namespace XBattlePongRestAPI.DataAccessAndDBContext
         {
             _xBattlePongDbContext = context;
         }
-        public ReglasDelEvento AddReglasDelEventoRecord(ReglasDelEvento reglasDelEvento)
+        public async Task<ReglasDelEvento> AddReglasDelEventoRecord(ReglasDelEvento reglasDelEvento)
         {
             _xBattlePongDbContext.ReglasDelEvento.Add(reglasDelEvento);
-            _xBattlePongDbContext.SaveChanges();
+            await _xBattlePongDbContext.SaveChangesAsync();
             return reglasDelEvento;
         }
 

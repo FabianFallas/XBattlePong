@@ -53,6 +53,7 @@ namespace XBattlePongRestAPI.Controllers
                 _dataAccessProvider.AddEventosRecord(evento);
                 TokenConEvento tokenConEvento = _tokenConEventoAccessProvider.AddTokenConEventoRecord(evento.codigoDeEvento);
                 return Ok(tokenConEvento);
+                //return Ok(evento);
             }
             return BadRequest("Bad information or format were introduced");
         }
