@@ -49,7 +49,7 @@ export class EventoComponent implements OnInit {
         let tokenRand = Math.random().toString(15).substr(2, 6);
         this.token = "Código de evento " + tokenRand;
 
-        let msg = '{"nombrePartida": "' + partida +  '","fechaDeInicio": "' + f_inicio + '","horaDeInicioSTR": "' + h_inicio + '","fechaDeFinalizacion": "' + f_final + '","horaDeFinalizacionSTR": "' + h_final +'","pais": "' + pais +'","localidad": "' + localidad + '","codigoDeEvento": "' + codigo +'","nombreDeOrganizador": "' + nombreDeOrganizador +'","token": "' + tokenRand+ '"}';
+        let msg = '{"nombrePartida": "' + partida +  '","fechaDeInicio": "' + f_inicio + '","horaDeInicioSTR": "' + h_inicio + '","fechaDeFinalizacion": "' + f_final + '","horaDeFinalizacionSTR": "' + h_final +'","pais": "' + pais +'","localidad": "' + localidad + '","codigoDeEvento": "' + codigo +'","nombreDeOrganizador": "' + nombreDeOrganizador +'"}';
         console.log(msg);
 
         this.service.Post(msg, 'http://localhost:5000/api/Eventos').subscribe(res=> {
@@ -57,7 +57,7 @@ export class EventoComponent implements OnInit {
         })
 
         let msg_2 = '{"Filas":' + filas + ',"Columnas":' + columnas + ',"TipoDeJugabilidad":"Individual'  + '","CantidadDeBarcos":' + 5 + ',"TiempoDeDisparo":' + tiempo + ',"codigoDeEvento_fk":"' + codigo + '"}';
-
+        console.log(msg_2)
         this.service.Post(msg_2, 'http://localhost:5000/api/ReglasDelEvento').subscribe(res=> {
         console.log(res)
         })

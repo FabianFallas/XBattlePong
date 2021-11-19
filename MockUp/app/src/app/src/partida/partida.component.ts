@@ -9,11 +9,11 @@ import { Rules } from '../models/rules.model';
   styleUrls: ['./partida.component.css']
 })
 export class PartidaComponent implements OnInit {
-  showBoards: boolean = true;
+  showBoards: boolean = false;
   showGames: boolean = false;
   eventRules = new Rules('',8,8,'',0,0,'');
   rootEventRulesGetURL:string = 'http://localhost:5000/api/Partidas/GetReglasDelEvento/';
-  rootGamesAvailabe: string = 'http://localhost:5000/api/GetPartidasByToken/';
+  rootGamesAvailabe: string = 'http://localhost:5000/api/Partidas/GetPartidasByToken/';
   games: Game[];
 
   constructor(private service: ConnectionService) { }
@@ -23,7 +23,7 @@ export class PartidaComponent implements OnInit {
 
   confirmedToken(eventCode: any): void {
     let url = this.rootEventRulesGetURL + eventCode.toString();
-    
+
     this.service.Get(url).subscribe(
       response => {
         // We assign the eventRules to the response to fill the information
@@ -40,11 +40,11 @@ export class PartidaComponent implements OnInit {
 
   searchGames(eventCode: any): void {
     let url = this.rootGamesAvailabe + eventCode.toString();
-
+    console.log(url)
     this.service.Get(url).subscribe(
       response => {
         console.log(response);
-        
+
         this.games = response;
 
         console.log(this.games);

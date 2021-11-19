@@ -13,10 +13,10 @@
     src="assets/xtec.png">
 
     <img
-    width="120" 
+    width="120"
     alt="Angular Logo"
     src="assets/xbattlepong.png">
-</div> 
+</div>
 
 <!--Título de la ventana-->
 
@@ -48,7 +48,7 @@
     <div class = "contenedor">
 
         <h3 class= "etiqueta_especial" > Reglas del evento: </h3>
-      
+
         <mat-card class="fondo_informacion">
 
             <label  class="etiqueta_simple"> Dimensiones {{this.eventRules.filas}} x {{this.eventRules.columnas}}</label>
@@ -65,7 +65,7 @@
 
     <!--Fin del Contenedor para las reglas del evento-->
 
-    
+
     <!--Contenedor para los barcos disponibles en el catálogo
     <div class="contenedor_barcos">
 
@@ -80,16 +80,16 @@
                         src="assets/ship_1.png">
 
                     <img
-                        width="120" 
+                        width="120"
                         alt="Angular Logo"
                         src="assets/ship_2.png">
 
                         <img
-                        width="120" 
+                        width="120"
                         alt="Angular Logo"
                         src="assets/ship_3.png">
-            </div> 
-       
+            </div>
+
         </mat-card>
 
     </div>
@@ -100,8 +100,8 @@
 
 
 
-   
-    
+
+
 <!--
 <div class="contenedor_tablero">
 
@@ -116,16 +116,16 @@
                     src="assets/ship_1.png">
 
                 <img
-                    width="120" 
+                    width="120"
                     alt="Angular Logo"
                     src="assets/ship_2.png">
 
                     <img
-                    width="120" 
+                    width="120"
                     alt="Angular Logo"
                     src="assets/ship_3.png">
-        </div> 
-   
+        </div>
+
     </mat-card>
 
 </div>
@@ -150,7 +150,7 @@
 
       <label  class="etiqueta_especial" >Token del evento </label>
       <input  class="entradas_texto" id="inputSearch" #inputSearch placeholder="ID de evento">
-      <button class="boton" (click)="searchGames(inputToken.value)">Buscar </button>
+      <button class="boton" (click)="searchGames(inputSearch.value)">Buscar </button>
 
     </div>
 
