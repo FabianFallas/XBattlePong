@@ -65,8 +65,8 @@
 
     <!--Fin del Contenedor para las reglas del evento-->
 
-
-    <!--Contenedor para los barcos disponibles en el catálogo -->
+    
+    <!--Contenedor para los barcos disponibles en el catálogo
     <div class="contenedor_barcos">
 
         <h3 class= "etiqueta_especial" > Catálogo de barcos</h3>
@@ -93,7 +93,7 @@
         </mat-card>
 
     </div>
-    <!--Fin del Contenedor para los barcos disponibles en el catálogo -->
+    Fin del Contenedor para los barcos disponibles en el catálogo -->
 
 </div>
 <!--Fin del Contenedor principal-->
@@ -102,7 +102,7 @@
 
    
     
-
+<!--
 <div class="contenedor_tablero">
 
     <h3 class= "etiqueta_especial" > Posiciona tus barcos en el mapa de juego</h3>
@@ -129,7 +129,31 @@
     </mat-card>
 
 </div>
+-->
 
-<button (click)="updateTest()">Prueba</button>
-
+<!--
+    <button (click)="updateTest()">Prueba</button>
+-->
 <app-place-ships *ngIf="showBoards"></app-place-ships>
+
+<!--Games search-->
+
+<div class="para_titulo" role="main"  style="margin-top: 50px" >
+    <div style = "text-align: center;" >
+      <h1 class= "etiqueta_especial" > BUSCAR PARTIDA  </h1>
+</div>
+
+<!--Search input-->
+<div>
+
+    <div class = "elementos_principales" style="margin-left: 50px">
+
+      <label  class="etiqueta_especial" >Token del evento </label>
+      <input  class="entradas_texto" id="inputSearch" #inputSearch placeholder="ID de evento">
+      <button class="boton" (click)="searchGames(inputToken.value)">Buscar </button>
+
+    </div>
+
+</div>
+
+

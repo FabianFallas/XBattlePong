@@ -7,6 +7,6 @@ export class Rules{
         public cantidadDeBarcos: number,
         public tiempoDeDisparo: number,
         public codigoDeEvento_fk: string,
-    ){
-    }
+    )
+    {}
 }
