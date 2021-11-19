@@ -54,6 +54,8 @@ export class PartidaComponent implements OnInit {
     );
   }
 
+  joinGame():void{}
+
   updateTest(): void {
     this.service.defaultRules = this.eventRules;
     this.showBoards = true;

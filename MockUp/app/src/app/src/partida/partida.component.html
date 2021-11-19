@@ -30,9 +30,9 @@
 
     <div class = "elementos_principales" style="margin-left: 50px">
 
-      <label  class="etiqueta_especial" >Token del evento </label>
-      <input  class="entradas_texto" id="inputToken" #inputToken placeholder="Token">
-      <button class="boton" (click)="confirmedToken(inputToken.value)">Confirmar </button>
+      <!--<label  class="etiqueta_especial" >Token del evento </label>-->
+      <input  class="entradas_texto" id="inputToken" #inputToken placeholder="ID del evento">
+      <button class="boton" (click)="confirmedToken(inputToken.value)">Crear </button>
 
     </div>
 
@@ -148,12 +148,25 @@
 
     <div class = "elementos_principales" style="margin-left: 50px">
 
-      <label  class="etiqueta_especial" >Token del evento </label>
-      <input  class="entradas_texto" id="inputSearch" #inputSearch placeholder="ID de evento">
-      <button class="boton" (click)="searchGames(inputSearch.value)">Buscar </button>
+      <!--<label  class="etiqueta_especial" >Introduce el codigo del evento </label>-->
+      <input  class="entradas_texto" id="inputSearch" #inputSearch placeholder="ID del evento">
+      <button class="boton" (click)="searchGames(inputSearch.value)">Buscar</button>
 
     </div>
 
 </div>
 
 
+<div *ngIf="showGames">
+    <label for="games"></label>
+    <div id="games">
+        <div class="row" *ngFor="let g of games">
+            <div class="column">
+                ID: {{g.partidasID}}
+            </div>
+            <div class="column">
+                <button class="boton" (click)="joinGame()">Unirse</button>
+            </div>
+        </div>
+    </div>
+</div>
