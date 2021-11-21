@@ -9,6 +9,7 @@ import { Rules } from '../models/rules.model';
   styleUrls: ['./partida.component.css']
 })
 export class PartidaComponent implements OnInit {
+  code: string;
   showBoards: boolean = false;
   showGames: boolean = false;
   eventRules = new Rules('',8,8,'',0,0,'');
@@ -22,6 +23,7 @@ export class PartidaComponent implements OnInit {
   }
 
   confirmedToken(eventCode: any): void {
+    this.code = eventCode;
     let url = this.rootEventRulesGetURL + eventCode.toString();
 
     this.service.Get(url).subscribe(
@@ -39,6 +41,7 @@ export class PartidaComponent implements OnInit {
   }
 
   searchGames(eventCode: any): void {
+    this.code = eventCode;
     let url = this.rootGamesAvailabe + eventCode.toString();
     console.log(url)
     this.service.Get(url).subscribe(
@@ -54,7 +57,9 @@ export class PartidaComponent implements OnInit {
     );
   }
 
-  joinGame():void{}
+  joinGame():void{
+    this.confirmedToken(this.code);
+  }
 
   updateTest(): void {
     this.service.defaultRules = this.eventRules;
