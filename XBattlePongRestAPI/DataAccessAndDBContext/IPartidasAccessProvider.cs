@@ -15,8 +15,9 @@ namespace XBattlePongRestAPI.DataAccessAndDBContext
         bool DeletePatidasRecord(string id);
         Partidas GetPartidasSingleRecord(string id);
         List<Partidas> GetPartidasRecords();
-        string GetReglasDelEventoIDByCodigoDeEvento(string codigoDeEvento);
+        string GetReglasDelEventoIDByToken(string token);
         ReglasDelEvento GetReglasDelEventoByID(string id);
+        string GetReglasDelEventoIDByCodigoDeEvento(string codigoDeEvento);
         bool PartidasExists(string id);
         List<Partidas> GetPartidasByToken(string token);
     }

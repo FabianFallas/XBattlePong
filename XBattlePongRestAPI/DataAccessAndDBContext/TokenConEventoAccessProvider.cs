@@ -10,17 +10,13 @@ namespace XBattlePongRestAPI.DataAccessAndDBContext
     public class TokenConEventoAccessProvider : ITokenConEventoAccessProvider
     {
         private XBattlePongDbContext _xBattlePongDbContext;
-        private TokenConEvento tokenConEvento = new TokenConEvento();
-        TokenManager tokenManager = new TokenManager();
         public TokenConEventoAccessProvider(XBattlePongDbContext context)
         {
             _xBattlePongDbContext = context;
         }
-        public TokenConEvento AddTokenConEventoRecord(string codigoDeEvento)
+        public TokenConEvento AddTokenConEventoRecord(TokenConEvento tokenConEvento)
         {
            
-            tokenConEvento.token = tokenManager.RandomString(6);
-            tokenConEvento.codigoDeEvento_fk = codigoDeEvento;
             _xBattlePongDbContext.TokenConEvento.Add(tokenConEvento);
             _xBattlePongDbContext.SaveChanges();
             return tokenConEvento;

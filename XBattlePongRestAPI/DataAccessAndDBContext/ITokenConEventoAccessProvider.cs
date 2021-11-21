@@ -10,11 +10,11 @@ namespace XBattlePongRestAPI.DataAccessAndDBContext
         /*
     Description: CRUD Operations for eventos con token
     */
-        public TokenConEvento AddTokenConEventoRecord(string codigoDeEvento);
+        TokenConEvento AddTokenConEventoRecord(TokenConEvento tokenConEvento);
         bool DeleteTokenConEventoRecord(string codigoDeEvento);
         TokenConEvento GetTokenConEventoSingleRecord(string id);
         List<TokenConEvento> GetTokenConEventoRecords();
-        public bool TokenConEventoExists(string codigoDeEvento);
+        bool TokenConEventoExists(string codigoDeEvento);
         
     }
 }

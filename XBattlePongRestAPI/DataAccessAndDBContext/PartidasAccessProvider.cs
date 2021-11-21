@@ -70,13 +70,23 @@ namespace XBattlePongRestAPI.DataAccessAndDBContext
         {
             return _xBattlePongDbContext.Partidas.Any(e => e.PartidasID == id);
         }
-        public string GetReglasDelEventoIDByCodigoDeEvento(string codigoDeEvento)
+        public string GetReglasDelEventoIDByToken(string token)
         {
+            string codigoDeEvento = _xBattlePongDbContext.TokenConEvento.Where(t => t.token == token).Select(cod => cod.codigoDeEvento_fk).SingleOrDefault();
             return _xBattlePongDbContext.ReglasDelEvento.Where(
                 cod => cod.codigoDeEvento_fk == codigoDeEvento
                 ).Select(
                 regID => regID.ReglaDelEventoID
                 ).SingleOrDefault(); 
+        }
+        public string GetReglasDelEventoIDByCodigoDeEvento(string codigoDeEvento)
+        {
+           
+            return _xBattlePongDbContext.ReglasDelEvento.Where(
+                cod => cod.codigoDeEvento_fk == codigoDeEvento
+                ).Select(
+                regID => regID.ReglaDelEventoID
+                ).SingleOrDefault();
         }
         public ReglasDelEvento GetReglasDelEventoByID(string id)
         {
@@ -85,7 +95,7 @@ namespace XBattlePongRestAPI.DataAccessAndDBContext
         public List<Partidas> GetPartidasByToken(string token)
         {
             TokenConEvento tokenConEvento = _xBattlePongDbContext.TokenConEvento.Find(token);
-            string reglasDelEventoID = GetReglasDelEventoIDByCodigoDeEvento(tokenConEvento.codigoDeEvento_fk);
+            string reglasDelEventoID = GetReglasDelEventoIDByToken(token);
             List<Partidas> partidasWithCodigoDeEventoList = _xBattlePongDbContext.Partidas.Where(
                 p => p.ReglaDelEventoID_fk == reglasDelEventoID).ToList();
             return partidasWithCodigoDeEventoList;

@@ -24,7 +24,7 @@ namespace XBattlePongRestAPI.Controllers
             _tokenConEventoAccessProvider = tokenConEventoAccessProvider;
         }
         [HttpGet]
-        public IEnumerable<Eventos> Get()
+        public ActionResult<IEnumerable<Eventos>> Get()
         {
             
             List<Eventos> eventosList = _dataAccessProvider.GetEventosRecords();
@@ -33,10 +33,11 @@ namespace XBattlePongRestAPI.Controllers
                 if (_tokenConEventoAccessProvider.TokenConEventoExists(evento.codigoDeEvento)) {
                     if (!tokenManager.isInEventDays(evento.fechaDeFinalizacion)) {
                         _tokenConEventoAccessProvider.DeleteTokenConEventoRecord(evento.codigoDeEvento);
+                        return Ok("Warning: El evento con codigo "+evento.codigoDeEvento+", se le ha removido el token: " + eventosList);
                     }
                 }
             }
-            return _dataAccessProvider.GetEventosRecords();
+            return eventosList;
         }
         [HttpGet("{codigo}")]
         public Eventos GetByCodigo(string codigo)
@@ -46,14 +47,10 @@ namespace XBattlePongRestAPI.Controllers
         [HttpPost]
         public IActionResult CreateEvento([FromBody] Eventos evento)
         {
-            Console.WriteLine("Esto:" + JsonConvert.SerializeObject(evento));
             if (ModelState.IsValid) 
             {
-                
                 _dataAccessProvider.AddEventosRecord(evento);
-                TokenConEvento tokenConEvento = _tokenConEventoAccessProvider.AddTokenConEventoRecord(evento.codigoDeEvento);
-                return Ok(tokenConEvento);
-                //return Ok(evento);
+                return Ok(evento);
             }
             return BadRequest("Bad information or format were introduced");
         }

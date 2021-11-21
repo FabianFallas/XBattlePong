@@ -10,7 +10,6 @@ namespace UnitTests
     public class utilsAndAccessProviderTests
     {
         TokenManager tokenManager;
-        private readonly IEventosAccessProvider _dataAccessProvider; 
         [SetUp]
         public void Setup()
         {
@@ -44,39 +43,6 @@ namespace UnitTests
             //Assert
             Assert.IsTrue(IsInEventDays);
         }
-        [Test]
-        public void AddEventosRecord_Works() {
-
-            Eventos evento = new Eventos();
-            /*
-            evento.nombrePartida = "AokiFest";
-            evento.fechaDeInicio = "2021-11-19";
-            evento.horaDeInicioSTR = "18:18";
-            evento.fechaDeFinalizacion=;
-            evento.horaDeFinalizacionSTR=;
-            evento.pais=;
-            evento.localidad=;
-            evento.codigoDeEvento=;
-            evento.nombreDeOrganizador=;
-
-
-            {
-    nombrePartida: "HardstyleFest",
-    fechaDeInicio: "2021-11-19",
-    horaDeInicioSTR: "17:17",
-    fechaDeFinalizacion: "2021-11-22",
-    horaDeFinalizacionSTR: "17:17",
-    pais: "Chile",
-    localidad: "Centro",
-    codigoDeEvento: "CH222CH222",
-    nombreDeOrganizador: "Hardwell"
-};
-            */
-
-            _dataAccessProvider.AddEventosRecord(evento);
-
-        }
-
 
     }
 }
