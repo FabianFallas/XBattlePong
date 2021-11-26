@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using XBattlePongRestAPI.Models;
+using XBattlePongRestAPI.Utils;
+
 namespace XBattlePongRestAPI.DataAccessAndDBContext
 {
     public class PartidasAccessProvider: IPartidasAccessProvider
     {
         private XBattlePongDbContext _xBattlePongDbContext;
+        private Converter converter = new Converter();
         public PartidasAccessProvider(XBattlePongDbContext context)
         {
             _xBattlePongDbContext = context;
@@ -40,30 +43,14 @@ namespace XBattlePongRestAPI.DataAccessAndDBContext
         public Partidas GetPartidasSingleRecord(string id)
         {
             Partidas selectedPartida = _xBattlePongDbContext.Partidas.SingleOrDefault(x => x.PartidasID == id);
-            string[] posJ1StrArray = selectedPartida.PosicionamientoBarcosJ1.Split(',');
-            string[] posJ2StrArray = selectedPartida.PosicionamientoBarcosJ2.Split(',');
-            selectedPartida.PosicionamientoBarcosJ1List = posJ1StrArray.Select(int.Parse).ToArray();
-            if (posJ2StrArray.Length > 1)
-            {
-                selectedPartida.PosicionamientoBarcosJ2List = posJ2StrArray.Select(int.Parse).Cast<int?>().ToArray();
-            }
+            selectedPartida = converter.parseFromPartidasModelStrAttributesToIntList(selectedPartida);
             return selectedPartida;
         }
 
         public List<Partidas> GetPartidasRecords()
         {
             List<Partidas> partidasList = _xBattlePongDbContext.Partidas.ToList();
-            foreach (Partidas partida in partidasList)
-            {
-                string[] posJ1StrArray = partida.PosicionamientoBarcosJ1.Split(',');
-                string[] posJ2StrArray = partida.PosicionamientoBarcosJ2.Split(',');
-                partida.PosicionamientoBarcosJ1List = posJ1StrArray.Select(int.Parse).ToArray();
-                if (posJ2StrArray.Length > 1)
-                {
-                    partida.PosicionamientoBarcosJ2List = posJ2StrArray.Select(int.Parse).Cast<int?>().ToArray();
-                }
-    
-            }
+            partidasList = converter.parseFromPartidasListStrAttributesToIntList(partidasList);
             return partidasList;
         }
         public bool PartidasExists(string id)
@@ -72,7 +59,7 @@ namespace XBattlePongRestAPI.DataAccessAndDBContext
         }
         public string GetReglasDelEventoIDByToken(string token)
         {
-            string codigoDeEvento = _xBattlePongDbContext.TokenConEvento.Where(t => t.token == token).Select(cod => cod.codigoDeEvento_fk).SingleOrDefault();
+            string codigoDeEvento = GetCodigoDeEventoByToken(token);
             return _xBattlePongDbContext.ReglasDelEvento.Where(
                 cod => cod.codigoDeEvento_fk == codigoDeEvento
                 ).Select(
@@ -99,6 +86,12 @@ namespace XBattlePongRestAPI.DataAccessAndDBContext
             List<Partidas> partidasWithCodigoDeEventoList = _xBattlePongDbContext.Partidas.Where(
                 p => p.ReglaDelEventoID_fk == reglasDelEventoID).ToList();
             return partidasWithCodigoDeEventoList;
+        }
+
+        public string GetCodigoDeEventoByToken(string token)
+        {
+            string codigoDeEvento = _xBattlePongDbContext.TokenConEvento.Where(t => t.token == token).Select(cod => cod.codigoDeEvento_fk).SingleOrDefault();
+            return codigoDeEvento;
         }
     }
 }

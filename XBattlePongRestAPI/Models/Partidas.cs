@@ -17,7 +17,7 @@ namespace XBattlePongRestAPI.Models
         public string PartidasID { get; set; }
         [NotMapped]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string codigoDeEvento { get; set; }
+        public string token { get; set; }
         [NotMapped]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public int[] PosicionamientoBarcosJ1List { get; set; }

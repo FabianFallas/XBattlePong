@@ -19,6 +19,7 @@ namespace XBattlePongRestAPI.DataAccessAndDBContext
         ReglasDelEvento GetReglasDelEventoByID(string id);
         string GetReglasDelEventoIDByCodigoDeEvento(string codigoDeEvento);
         bool PartidasExists(string id);
+        string GetCodigoDeEventoByToken(string token);
         List<Partidas> GetPartidasByToken(string token);
     }
 }

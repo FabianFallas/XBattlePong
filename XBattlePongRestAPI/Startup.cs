@@ -37,6 +37,7 @@ namespace XBattlePongRestAPI
             services.AddScoped<IPartidasAccessProvider, PartidasAccessProvider>();
             services.AddScoped<IReglasDelEventoAccessProvider, ReglasDelEventoAccessProvider>();
             services.AddScoped<ITokenConEventoAccessProvider, TokenConEventoAccessProvider>();
+            services.AddScoped<ICatalogoDeNavesAccessProvider, CatalogoDeNavesAccessProvider>();
             services.AddControllers();
 
         }

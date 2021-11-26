@@ -8,7 +8,7 @@ namespace XBattlePongRestAPI.DataAccessAndDBContext
     public interface IReglasDelEventoAccessProvider
     {
         /*
-        Description: CRUD Operations for events 
+        Description: CRUD Operations for Reglas del Evento 
         */
         ReglasDelEvento AddReglasDelEventoRecord(ReglasDelEvento reglasDelEvento);
         void UpdateReglasDelEventoRecord(ReglasDelEvento reglasDelEvento);

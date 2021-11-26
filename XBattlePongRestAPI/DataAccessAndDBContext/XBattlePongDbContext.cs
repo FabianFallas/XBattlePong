@@ -7,15 +7,16 @@ using XBattlePongRestAPI.Models;
 
 namespace XBattlePongRestAPI.DataAccessAndDBContext
 {
-    public class XBattlePongDbContext: DbContext
+    public class XBattlePongDbContext : DbContext
     {
-        public XBattlePongDbContext(DbContextOptions<XBattlePongDbContext> options):base(options) 
-        { 
-                
+        public XBattlePongDbContext(DbContextOptions<XBattlePongDbContext> options) : base(options)
+        {
+
         }
         public DbSet<Eventos> Eventos { get; set; }
-        public DbSet<Partidas> Partidas { get; set;}
+        public DbSet<Partidas> Partidas { get; set; }
         public DbSet<ReglasDelEvento> ReglasDelEvento { get; set; }
         public DbSet<TokenConEvento> TokenConEvento { get; set; }
+        public DbSet<CatalogoDeNaves> CatalogoDeNaves { get; set;}
     }
 }
