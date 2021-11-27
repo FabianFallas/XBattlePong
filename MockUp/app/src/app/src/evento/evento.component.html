@@ -168,6 +168,33 @@
 
       </mat-card>
 
+      <!--ADD SHIP TO CATALOGUE-->
+      <h3 class= "labelt" style="font-family: Arial, Helvetica, sans-serif"> Agregar  </h3>
+      <mat-card class="example-card">
+        <form [formGroup]="newShipForm">
+
+          <label  class="label" >Dimensiones del Tablero</label>
+          
+          <div class = "inicio">
+            
+            <div class = "evento" >
+              <label  class="label" >Alto</label>
+              <input type="number" min="1" max="3" class="especial"  id="shipLength"  #shipLength>
+            </div>
+
+            <div class = "evento" style="margin-left: 30px" >
+              <label  class="label" >Ancho</label>
+              <input type="number"  min="1" max="3" class="especial"  id="shipWidth" #shipWidth>
+            </div>
+
+          </div>
+          
+          <button class="boton-ship">Agregar barco</button>
+          
+        </form>
+
+      </mat-card>
+
       <h2  class="labelt" style = "text-align: center;">Confirmar evento</h2>
 
       <button class="boton"  (click) = "Verificar(nombrepartida.value,

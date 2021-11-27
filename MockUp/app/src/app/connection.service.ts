@@ -7,7 +7,7 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class ConnectionService {
-  defaultRules: Rules = new Rules('none',4,4,'Individual',5,10,'none');
+  defaultRules: Rules = new Rules('none',11,9,'Individual',5,10,'none');
 
   constructor(private http: HttpClient) { }
 

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
 import { Ship } from '../models/ship.model';
 import { PlaceShipsComponent } from './place-ships.component';
 
@@ -37,19 +38,28 @@ describe('PlaceShipsComponent', () => {
     expect(h).toBe(component.isHorizontal);
   });
 
-  it('should allow a correct position', function () {
+  it('should allow a correct horizaontal position', function () {
     component.width = 10;
     component.height = 10;
 
-    component.selectedShip = new Ship('destroyer', 3, 'orange');
+    component.selectedShip = new Ship('destroyer',3,1, 'orange');
     expect(component.isPositionCorrect(1)).toBeTrue();
   });
 
-  it('should not allow a position because the ship is out of bounds', function () {
+  it('should not allow a horizontal position because the ship is out of bounds', function () {
     component.width = 10;
     component.height = 10;
 
-    component.selectedShip = new Ship('destroyer', 3, 'orange');
+    component.selectedShip = new Ship('destroyer', 3, 1, 'orange');
     expect(component.isPositionCorrect(100)).toBeFalse();
+  });
+
+  it('should allow a correct horizontal position', function () {
+    component.width = 10;
+    component.height = 10;
+
+    component.selectedShip = new Ship('destroyer',3,1, 'orange');
+    component.rotate();
+    expect(component.isPositionCorrect(1)).toBeTrue();
   });
 });

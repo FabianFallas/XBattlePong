@@ -30,7 +30,7 @@ isShipSelected: boolean = false;
 // List for storing the available ships
 ships: Ship[] = [];
 // Variable for storing the info of a selected ship for putting on the grid
-selectedShip: Ship = new Ship('',0,'');
+selectedShip: Ship = new Ship('',0,0,'');
 
 constructor(private service: ConnectionService) {
 }
@@ -44,9 +44,9 @@ ngOnInit(): void {
   this.height = this.service.defaultRules.columnas;
 
   // We filled the available ships list with the ships
-  this.ships.push(new Ship('destroyer',3,'orange'))
-  this.ships.push(new Ship('submarine',4,'blue'))
-  this.ships.push(new Ship('battleship',5,'red'))
+  this.ships.push(new Ship('destroyer',3,2,'orange'))
+  this.ships.push(new Ship('submarine',4,1,'blue'))
+  this.ships.push(new Ship('battleship',5,3,'red'))
 
   // We calculate the right most squares of the grid, used for defining boundaries
   for (let f = 1; f <= this.height; f++){
@@ -66,6 +66,8 @@ ngOnInit(): void {
 rotate(): void {
   if (!this.isShipSelected) {
     this.isHorizontal = !this.isHorizontal;
+  } else {
+    alert('No se pueden rotar las naves si ya se tiene una seleccionada');
   }
 }
 
@@ -86,7 +88,6 @@ shipClicked(s: any): void {
       this.selectedShip = this.ships[i];
     }
   }
-  console.log(this.selectedShip)
 }
 
 /**
@@ -98,29 +99,39 @@ squareClicked(e: any): void {
   let id: string = e.target.id.toString();
 
   // If a ship is selected and the position is correct we put it on the grid
-  if (this.isShipSelected && this.isPositionCorrect(id)) {
-    // We check if the placement of the ship is horizontal or vertical
-    if (this.isHorizontal) {
-
-      for (let i = 0; i < this.selectedShip.length; i++) {
-        let currentId = Number(id);
-        currentId += i;
-
-        // We save the occupied position to a list and change the color of the square to the one of the ship
-        this.squaresOccupied.push(currentId);
-        document.getElementById(currentId.toString())!.style.backgroundColor = this.selectedShip.color;
+  if (this.isShipSelected) {
+    if (this.squaresOccupied.length + (this.selectedShip.length * this.selectedShip.width) <= this.squares.length / 2) {
+      if (this.isPositionCorrect(id)) {
+        // Placement of the ship
+        if (this.isHorizontal) {
+          for (let i = 0; i < this.selectedShip.width; i++) {
+            let currentId = Number(id) + i * this.width;
+            for (let j = 0; j < this.selectedShip.length; j++) {
+              this.squaresOccupied.push(currentId);
+              document.getElementById(currentId.toString())!.style.backgroundColor = this.selectedShip.color;
+              currentId++;
+            }
+          }
+        }
+        else {
+          for (let i = 0; i < this.selectedShip.width; i++) {
+            let currentId = Number(id) + i;
+            for (let j = 0; j < this.selectedShip.length; j++) {
+              this.squaresOccupied.push(currentId);
+              document.getElementById(currentId.toString())!.style.backgroundColor = this.selectedShip.color;
+              currentId += this.width;
+            }
+          }
+        }
+        this.isShipSelected = false;
+      } else {
+          alert('Posicion invalida para colocar esta nave')
+        }
+    } else {
+        alert('Ya no se pueden colocar mas naves')
       }
-    }
-    // Code for putting a vertical ship
-    else {
-      // TO DO
-    }
-    this.isShipSelected = false;
-  }
-  else {
-    if (this.isShipSelected) {
-      alert('Posicion invalida para colocar esta nave')
-    }
+  } else {
+      alert('No se ha seleccionado ninguna nave para colocar')
   }
 }
 
@@ -129,27 +140,43 @@ squareClicked(e: any): void {
  * If the position of the ship goes against the rules the method returns false, if not returns true
  * @param id of the square to be checked
  */
-isPositionCorrect(id: any): boolean {
+isPositionCorrect(id: any): boolean { 
   // Horizontal positioning
   if (this.isHorizontal) {
 
-    // We visit the squares connected from the starting position
-    for (let i = 0; i < this.selectedShip.length; ++i) {
-      let currentId = Number(id);
-      currentId += i;
-
-      // Checks
-      if (currentId > this.squares.length ||
-        document.getElementById(currentId.toString())!.style.backgroundColor !== this.baseColor ||
-        (this.rightMostSquares.includes(currentId) && i + 1 != this.selectedShip.length)) {
-        return false;
+    for (let i = 0; i < this.selectedShip.width; i++) {
+      let currentId = Number(id) + i * this.width;
+      for (let j = 0; j < this.selectedShip.length; ++j) {
+        // Checks
+        if (currentId > this.squares.length ||
+          document.getElementById(currentId.toString())!.style.backgroundColor !== this.baseColor ||
+          (this.rightMostSquares.includes(currentId) && j + 1 != this.selectedShip.length)) {
+          //console.log('Not Valid:' + currentId)
+          return false;
+        }
+        //console.log('Valid:' + currentId)
+        currentId ++;
       }
     }
   }
+
   // Vertical positioning
   else {
-    // TO DO
+
+    for (let i = 0; i < this.selectedShip.width; i++) {
+      let currentId = Number(id) + i;
+      for (let j = 0; j < this.selectedShip.length; ++j) {
+        // Checks
+        if (currentId > this.squares.length ||
+          document.getElementById(currentId.toString())!.style.backgroundColor !== this.baseColor) {
+          //console.log('Not Valid:' + currentId)
+          return false;
+        }
+        //console.log('Valid:' + currentId)
+        currentId += this.width;
+      }
+    } 
   }
   return true;
-  }
+}
 }

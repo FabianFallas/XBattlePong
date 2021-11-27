@@ -13,6 +13,7 @@ export class EventoComponent implements OnInit {
 
   formularioevento = new FormGroup({});
   formulariopartida= new FormGroup({});
+  newShipForm = new FormGroup({});
 
   now = new Date();
   year = this.now.getFullYear();

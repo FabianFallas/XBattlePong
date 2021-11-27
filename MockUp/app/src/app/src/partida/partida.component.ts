@@ -9,7 +9,7 @@ import { Rules } from '../models/rules.model';
   styleUrls: ['./partida.component.css']
 })
 export class PartidaComponent implements OnInit {
-  showBoards: boolean = false;
+  showBoards: boolean = true;
   showGames: boolean = false;
   eventRules = new Rules('',8,8,'',0,0,'');
   rootEventRulesGetURL:string = 'http://localhost:5000/api/Partidas/GetReglasDelEvento/';
