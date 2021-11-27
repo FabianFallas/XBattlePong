@@ -32,7 +32,7 @@
 
       <!--<label  class="etiqueta_especial" >Token del evento </label>-->
       <input  class="entradas_texto" id="inputToken" #inputToken placeholder="ID del evento">
-      <button class="boton" (click)="confirmedToken(inputToken.value)">Crear </button>
+      <button class="boton" (click)="getRules(inputToken.value)">Crear </button>
 
     </div>
 
@@ -165,7 +165,7 @@
                 ID: {{g.partidasID}}
             </div>
             <div class="column">
-                <button class="boton" (click)="joinGame()">Unirse</button>
+                <button class="boton" (click)="joinGame(g.partidasID)">Unirse</button>
             </div>
         </div>
     </div>

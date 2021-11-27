@@ -9,30 +9,39 @@ import { Rules } from '../models/rules.model';
   styleUrls: ['./partida.component.css']
 })
 export class PartidaComponent implements OnInit {
-  code: string;
+  // This attributes display different html components
   showBoards: boolean = false;
   showGames: boolean = false;
-  eventRules = new Rules('',8,8,'',0,0,'');
-  rootEventRulesGetURL:string = 'http://localhost:5000/api/Partidas/GetReglasDelEvento/';
+
+  // This attributes store recieved information
+  eventRules: Rules = new Rules('',0,0,'',0,0,'');
+  games: Game[] = [];
+
+  // Root URLs to which we make requests
+  rootEventRulesGetURL: string = 'http://localhost:5000/api/Partidas/GetReglasDelEvento/';
   rootGamesAvailabe: string = 'http://localhost:5000/api/Partidas/GetPartidasByToken/';
-  games: Game[];
+  
 
   constructor(private service: ConnectionService) { }
 
   ngOnInit(): void {
   }
 
-  confirmedToken(eventCode: any): void {
-    this.code = eventCode;
-    let url = this.rootEventRulesGetURL + eventCode.toString();
-
+  /**
+   * This method recieves a event id and makes a GET request for rules to the server, the rules are stored on an attribute
+   * @param eventID 
+   */
+  getRules(eventID: any): void {
+    this.service.eventID = eventID;
+    
+    let url = this.rootEventRulesGetURL + eventID.toString();
     this.service.Get(url).subscribe(
       response => {
         // We assign the eventRules to the response to fill the information
         this.eventRules =  response;
 
-        // We save the rules on the serive for the other components to access
-        this.service.defaultRules = this.eventRules;
+        // We save the rules on the service for the other components to access
+        this.service.eventRules = this.eventRules;
 
         // We activate the place-ships component
         this.showBoards = true;
@@ -40,29 +49,31 @@ export class PartidaComponent implements OnInit {
     );
   }
 
-  searchGames(eventCode: any): void {
-    this.code = eventCode;
-    let url = this.rootGamesAvailabe + eventCode.toString();
-    console.log(url)
+  /**
+   * This method recieves a event id and makes a GET request for available game to the server, the games are stored on an attribute
+   * @param eventID 
+   */
+  searchGames(eventID: any): void {
+    this.service.eventID = eventID;
+
+    let url = this.rootGamesAvailabe + eventID.toString();
     this.service.Get(url).subscribe(
       response => {
-        console.log(response);
-
+        // We fill the games list with the available games in that event 
         this.games = response;
 
-        console.log(this.games);
-
+        // We show the list of available games
         this.showGames = true;
       }
     );
   }
 
-  joinGame():void{
-    this.confirmedToken(this.code);
-  }
-
-  updateTest(): void {
-    this.service.defaultRules = this.eventRules;
-    this.showBoards = true;
+  /**
+   * This method the game ID that was selected to join and stores it on the service and gets the rules of the event
+   * @param gameID 
+   */
+  joinGame(gameID: any):void{
+    this.service.gameID = gameID;
+    this.getRules(this.service.eventID);
   }
 }

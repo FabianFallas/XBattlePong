@@ -40,8 +40,8 @@ ngOnInit(): void {
   this.baseColor = 'aquamarine';
 
   // We set the proportions of the grid based on the rules
-  this.width = this.service.defaultRules.filas;
-  this.height = this.service.defaultRules.columnas;
+  this.width = this.service.eventRules.filas;
+  this.height = this.service.eventRules.columnas;
 
   // We filled the available ships list with the ships
   this.ships.push(new Ship('destroyer',3,2,'orange'))
