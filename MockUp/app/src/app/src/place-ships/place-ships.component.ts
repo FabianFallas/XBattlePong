@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ConnectionService } from 'src/app/connection.service';
+import { Barco } from '../models/barco.model';
 import { Rules } from '../models/rules.model';
 import { Ship } from '../models/ship.model';
 
@@ -29,6 +30,7 @@ export class PlaceShipsComponent implements OnInit {
   isShipSelected: boolean = false;
   // List for storing the available ships
   ships: Ship[] = [];
+  barcos: Barco[] = [];
   // Variable for storing the info of a selected ship for putting on the grid
   selectedShip: Ship = new Ship('',0,0,'');
   // Amount of ships placed
@@ -45,7 +47,30 @@ export class PlaceShipsComponent implements OnInit {
     this.width = this.service.eventRules.filas;
     this.height = this.service.eventRules.columnas;
 
-    // We filled the available ships list with the ships
+    /*
+    // GET of the ships
+    this.service.Get('http://localhost:5000/api/CatalogoDeNaves/GetCatalogoDeNavesByToken/' + this.service.eventID).subscribe(
+      res => {
+        console.log(res)
+        this.barcos = res;
+        console.log(this.barcos);
+      }
+    )
+    */
+
+    // If the server sends ships we get data from them and adapted them to our model
+    if (this.barcos.length > 0){
+      this.service.eventCode = this.barcos[0].codigoDeEvento_fk
+
+      for (let i = 0; i < this.barcos.length; i++){
+        this.ships[i].name = this.barcos[i].naveID;
+        this.ships[i].length = this.barcos[i].alto;
+        this.ships[i].width = this.barcos[i].ancho;
+        this.ships[i].color = this.barcos[i].color; 
+      }
+    }
+
+    // We manually filled the available ships list with the ships
     this.ships.push(new Ship('destroyer',3,2,'orange'))
     this.ships.push(new Ship('submarine',2,1,'blue'))
     this.ships.push(new Ship('battleship',1,3,'red'))
