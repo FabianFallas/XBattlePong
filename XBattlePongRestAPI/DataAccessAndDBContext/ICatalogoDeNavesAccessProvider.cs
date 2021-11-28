@@ -17,5 +17,7 @@ namespace XBattlePongRestAPI.DataAccessAndDBContext
         CatalogoDeNaves GetCatalogoDeNavesSingleRecord(string id);
         List<CatalogoDeNaves> GetCatalogoDeNavesRecords();
         bool CatalogoDeNavesExists(string id);
+        List<CatalogoDeNaves> GetCatalogoDeNavesRecordsByToken(string token);
+        string GetTokenByCodigoDeEvento(string codigoDeEvento);
     }
 }

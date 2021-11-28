@@ -18,5 +18,6 @@ namespace XBattlePongRestAPI.DataAccessAndDBContext
         public DbSet<ReglasDelEvento> ReglasDelEvento { get; set; }
         public DbSet<TokenConEvento> TokenConEvento { get; set; }
         public DbSet<CatalogoDeNaves> CatalogoDeNaves { get; set;}
+        public DbSet<UsuarioEnPartida> UsuarioEnPartida { get; set; } 
     }
 }

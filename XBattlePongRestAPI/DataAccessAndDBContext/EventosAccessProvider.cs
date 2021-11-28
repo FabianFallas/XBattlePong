@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,9 +17,10 @@ namespace XBattlePongRestAPI.DataAccessAndDBContext
         }
         public Eventos AddEventosRecord(Eventos evento)
         {
-
+            
             evento.horaDeInicio = converter.parseStrToTimeSpan(evento.horaDeInicioSTR);
             evento.horaDeFinalizacion = converter.parseStrToTimeSpan(evento.horaDeFinalizacionSTR);
+            Console.WriteLine("Evento: " + JsonConvert.SerializeObject(evento));
             _xBattlePongDbContext.Eventos.Add(evento);
             _xBattlePongDbContext.SaveChanges();
             return evento;

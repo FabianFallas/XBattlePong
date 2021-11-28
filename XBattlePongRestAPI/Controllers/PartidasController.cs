@@ -16,7 +16,7 @@ namespace XBattlePongRestAPI.Controllers
     public class PartidasController : ControllerBase
     {
         private readonly IPartidasAccessProvider _dataAccessProvider;
-        private Converter converter = new Converter();
+        
         public PartidasController(IPartidasAccessProvider dataAccessProvider)
         {
             _dataAccessProvider = dataAccessProvider;
@@ -77,10 +77,8 @@ namespace XBattlePongRestAPI.Controllers
         [HttpPut]
         public ActionResult PutPartidas([FromBody]Partidas partidas)
         {
-            string codigoDeEvento = _dataAccessProvider.GetCodigoDeEventoByToken(partidas.token);
-            partidas.ReglaDelEventoID_fk = _dataAccessProvider.GetReglasDelEventoIDByCodigoDeEvento(codigoDeEvento);
-            partidas.PosicionamientoBarcosJ1 = converter.parseListToStr(partidas.PosicionamientoBarcosJ1List);
-            partidas.PosicionamientoBarcosJ2 = converter.parseCanBeEmptyListToStr(partidas.PosicionamientoBarcosJ2List); 
+            
+            //partidas.PosicionamientoBarcosJ2 = converter.parseCanBeEmptyListToStr(partidas.PosicionamientoBarcosJ2List); 
             _dataAccessProvider.UpdatePartidasRecord(partidas);
              return Ok("Updated!");
         }
@@ -99,8 +97,10 @@ namespace XBattlePongRestAPI.Controllers
 
             //partidas.PosicionamientoBarcosJ1 = string.Join(",", partidas.PosicionamientoBarcosJ1List.Select(item => item.ToString()).ToArray());
             //partidas.PosicionamientoBarcosJ2 = string.Join(",", partidas.PosicionamientoBarcosJ2List.Select(item => item.ToString()).ToArray());
-            partidas.PosicionamientoBarcosJ1 = converter.parseListToStr(partidas.PosicionamientoBarcosJ1List);
-            partidas.PosicionamientoBarcosJ2 = "";
+            
+            //ToPassToOtherController
+            //partidas.PosicionamientoBarcosJ1 = converter.parseListToStr(partidas.PosicionamientoBarcosJ1List);
+            //partidas.PosicionamientoBarcosJ2 = "";
             _dataAccessProvider.AddPartidasRecord(partidas);
             return CreatedAtAction("GetPartidas", new { id = partidas.PartidasID }, partidas);
         }

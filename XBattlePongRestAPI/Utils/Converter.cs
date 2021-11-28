@@ -23,29 +23,29 @@ namespace XBattlePongRestAPI.Utils
             string str = string.Join(",", posicionesList.Select(item => item.ToString()).ToArray());
             return str;
         }
-        public Partidas parseFromPartidasModelStrAttributesToIntList(Partidas selectedPartida) {
-            string[] posJ1StrArray = selectedPartida.PosicionamientoBarcosJ1.Split(',');
-            string[] posJ2StrArray = selectedPartida.PosicionamientoBarcosJ2.Split(',');
-            selectedPartida.PosicionamientoBarcosJ1List = posJ1StrArray.Select(int.Parse).ToArray();
-            if (posJ2StrArray.Length > 1)
+        public UsuarioEnPartida parseFromUsuarioEnPartidaModelStrAttributesToIntList(UsuarioEnPartida selectedUsuarioEnPartida) {
+            string[] posicionamientoStrArray = selectedUsuarioEnPartida.PosicionamientoBarcos.Split(',');
+            string[] jugadasStrArray = selectedUsuarioEnPartida.PosicionamientoDeJugadas.Split(',');
+            selectedUsuarioEnPartida.PosicionamientoBarcosList = posicionamientoStrArray.Select(int.Parse).ToArray();
+            if (jugadasStrArray.Length > 1)
             {
-                selectedPartida.PosicionamientoBarcosJ2List = posJ2StrArray.Select(int.Parse).Cast<int?>().ToArray();
+                selectedUsuarioEnPartida.PosicionamientoDeJugadasList = jugadasStrArray.Select(int.Parse).Cast<int?>().ToArray();
             }
-            return selectedPartida;
+            return selectedUsuarioEnPartida;
         }
-        public List<Partidas> parseFromPartidasListStrAttributesToIntList(List<Partidas> partidasList) {
-            foreach (Partidas partida in partidasList)
+        public List<UsuarioEnPartida> parseFromUsuarioEnPartidaListStrAttributesToIntList(List<UsuarioEnPartida> usuarioEnPartidaList) {
+            foreach (UsuarioEnPartida usuarioEnPartida in usuarioEnPartidaList)
             {
-                string[] posJ1StrArray = partida.PosicionamientoBarcosJ1.Split(',');
-                string[] posJ2StrArray = partida.PosicionamientoBarcosJ2.Split(',');
-                partida.PosicionamientoBarcosJ1List = posJ1StrArray.Select(int.Parse).ToArray();
-                if (posJ2StrArray.Length > 1)
+                string[] posicionamientoStrArray = usuarioEnPartida.PosicionamientoBarcos.Split(',');
+                string[] jugadasStrArray = usuarioEnPartida.PosicionamientoDeJugadas.Split(',');
+                usuarioEnPartida.PosicionamientoBarcosList = posicionamientoStrArray.Select(int.Parse).ToArray();
+                if (jugadasStrArray.Length > 1)
                 {
-                    partida.PosicionamientoBarcosJ2List = posJ2StrArray.Select(int.Parse).Cast<int?>().ToArray();
+                    usuarioEnPartida.PosicionamientoDeJugadasList = jugadasStrArray.Select(int.Parse).Cast<int?>().ToArray();
                 }
 
             }
-            return partidasList;
+            return usuarioEnPartidaList;
         }
     }
 }

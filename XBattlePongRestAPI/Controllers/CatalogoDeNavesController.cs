@@ -25,6 +25,20 @@ namespace XBattlePongRestAPI.Controllers
         {
             return _catalogoDeNavesAccessProvider.GetCatalogoDeNavesRecords();
         }
+        // GET: api/CatalogoDeNaves/GetCatalogoDeNavesByToken/{token}
+        [HttpGet("GetCatalogoDeNavesByToken/{token}")]
+        public ActionResult<IEnumerable<CatalogoDeNaves>> GetPartidasByToken(string token)
+        {
+
+            var catalogoDeNaves = _catalogoDeNavesAccessProvider.GetCatalogoDeNavesRecordsByToken(token);
+
+            if (catalogoDeNaves == null)
+            {
+                return NotFound();
+            }
+
+            return catalogoDeNaves;
+        }
 
         // GET: api/CatalogoDeNaves/5
         [HttpGet("{id}")]
@@ -59,7 +73,10 @@ namespace XBattlePongRestAPI.Controllers
             Guid catalogoDeNavesID = Guid.NewGuid();
             catalogoDeNaves.naveID = catalogoDeNavesID.ToString();
             _catalogoDeNavesAccessProvider.AddCatalogoDeNavesRecord(catalogoDeNaves);
-            return CreatedAtAction("GetCatalogoDeNaves", new { id = catalogoDeNaves.naveID }, catalogoDeNaves);
+            string token = _catalogoDeNavesAccessProvider.GetTokenByCodigoDeEvento(catalogoDeNaves.codigoDeEvento_fk);
+            List<CatalogoDeNaves> catalogoDeNavesList = _catalogoDeNavesAccessProvider.GetCatalogoDeNavesRecordsByToken(token);
+
+            return Ok(catalogoDeNavesList.Count);
         }
 
         // DELETE: api/CatalogoDeNaves/5

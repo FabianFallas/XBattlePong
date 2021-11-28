@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace XBattlePongRestAPI.DataAccessAndDBContext
         }
         public ReglasDelEvento AddReglasDelEventoRecord(ReglasDelEvento reglasDelEvento)
         {
+            Console.WriteLine("Reglas: " + JsonConvert.SerializeObject(reglasDelEvento));
             _xBattlePongDbContext.ReglasDelEvento.Add(reglasDelEvento);
             _xBattlePongDbContext.SaveChanges();
             return reglasDelEvento;

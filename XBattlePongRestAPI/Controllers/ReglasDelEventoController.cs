@@ -56,10 +56,14 @@ namespace XBattlePongRestAPI.Controllers
         [HttpPost]
         public ActionResult<ReglasDelEvento> PostReglasDelEvento([FromBody] ReglasDelEvento reglasDelEvento)
         {
-            Guid reglasDelEventoID = Guid.NewGuid();
-            reglasDelEvento.ReglaDelEventoID = reglasDelEventoID.ToString();
-            _dataAccessProvider.AddReglasDelEventoRecord(reglasDelEvento);
-            return CreatedAtAction("GetReglasDelEvento", new { id = reglasDelEvento.ReglaDelEventoID }, reglasDelEvento);
+            if (ModelState.IsValid)
+            {
+                Guid reglasDelEventoID = Guid.NewGuid();
+                reglasDelEvento.ReglaDelEventoID = reglasDelEventoID.ToString();
+                _dataAccessProvider.AddReglasDelEventoRecord(reglasDelEvento);
+                return Ok(reglasDelEvento);
+            }
+            return BadRequest("Bad information or format were introduced");
         }
 
         // DELETE: api/ReglasDelEventoes/5

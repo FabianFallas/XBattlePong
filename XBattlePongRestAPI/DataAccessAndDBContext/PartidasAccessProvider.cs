@@ -24,7 +24,8 @@ namespace XBattlePongRestAPI.DataAccessAndDBContext
 
         public void UpdatePartidasRecord(Partidas partidas)
         {
-            _xBattlePongDbContext.Partidas.Update(partidas);
+            var partidasToBeUpdated = _xBattlePongDbContext.Partidas.Find(partidas.PartidasID);
+            _xBattlePongDbContext.Partidas.Update(partidasToBeUpdated);
             _xBattlePongDbContext.SaveChanges();
         }
 
@@ -43,14 +44,12 @@ namespace XBattlePongRestAPI.DataAccessAndDBContext
         public Partidas GetPartidasSingleRecord(string id)
         {
             Partidas selectedPartida = _xBattlePongDbContext.Partidas.SingleOrDefault(x => x.PartidasID == id);
-            selectedPartida = converter.parseFromPartidasModelStrAttributesToIntList(selectedPartida);
             return selectedPartida;
         }
 
         public List<Partidas> GetPartidasRecords()
         {
             List<Partidas> partidasList = _xBattlePongDbContext.Partidas.ToList();
-            partidasList = converter.parseFromPartidasListStrAttributesToIntList(partidasList);
             return partidasList;
         }
         public bool PartidasExists(string id)
