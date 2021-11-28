@@ -1,40 +1,38 @@
-<!--This section has info related to the game-->
-<div>
-     <button id="rotate" (click)="rotate()">Rotate Your Ships</button>
-</div>
-
-<!--In this part we have the display of the ships-->
-<div class="grid-display">
-     <div *ngIf="!isHorizontal"> 
-          <div *ngFor="let shp of ships"
-               id="{{shp.name}}"
-               style="margin: 10px; display: flex;"
-               [ngStyle]="{'width.px': shp.width * 40, 'height.px': shp.length * 40, 'background-color': shp.color}"
-               (click)="shipClicked($event)">
-          </div>
-     </div>
-     
-     <div *ngIf="isHorizontal"> 
-          <div *ngFor="let shp of ships"
-               id="{{shp.name}}"
-               style="margin: 10px; display: flex;"
-               [ngStyle]="{'width.px': shp.length * 40, 'height.px': shp.width * 40, 'background-color': shp.color}"
-               (click)="shipClicked($event)">
-          </div>
-     </div>
-</div>
-
-
-
-
 <!--Game grid:
      Here we create a div that holds a set number of divs that act like the grid tiles or
      squares. We use ngstyle for changing the dimensions of the holder div. To create the
      squares we use *ngFor using the squares list that is based upon the width and height
      of the game grid-->
 
-<div class="row">
-     <div class="column">
+<div class="row" style="text-align: center">
+     <div class="column" style="text-align: center">
+          <h3 class= "labelt" style="font-family: Arial, Helvetica, sans-serif"> Barcos para colocar </h3>
+          <!--In this part we have the display of the ships-->
+          <div class="grid-display">
+               <div>
+                    <button id="rotate" (click)="rotate()">Rotate Your Ships</button>
+               </div>
+               
+               <div *ngIf="!isHorizontal"> 
+                    <div *ngFor="let shp of ships"
+                         id="{{shp.name}}"
+                         style="margin: 10px; display: flex;"
+                         [ngStyle]="{'width.px': shp.width * 40, 'height.px': shp.length * 40, 'background-color': shp.color}"
+                         (click)="shipClicked($event)">
+                    </div>
+               </div>
+               
+               <div *ngIf="isHorizontal"> 
+                    <div *ngFor="let shp of ships"
+                         id="{{shp.name}}"
+                         style="margin: 10px; display: flex;"
+                         [ngStyle]="{'width.px': shp.length * 40, 'height.px': shp.width * 40, 'background-color': shp.color}"
+                         (click)="shipClicked($event)">
+                    </div>
+               </div>
+          </div>
+     </div>
+     <div class="column" style="text-align: center">
           <h3 class= "labelt" style="font-family: Arial, Helvetica, sans-serif"> Mi pantalla: {{this.service.username}} </h3>
           <div class="grid-user"
                [ngStyle]="{'width.px': width * 40, 'height.px': height * 40}">
@@ -47,12 +45,12 @@
                {{s}}</div>
           </div>
      </div>
-     <div class="column">
+     <div class="column" style="text-align: center">
           <h3 class= "labelt" style="font-family: Arial, Helvetica, sans-serif"> Pantalla rival: {{this.service.enemyUsername}} </h3>
           <div class="grid-user"
                [ngStyle]="{'width.px': width * 40, 'height.px': height * 40}">
                <div *ngFor="let s of squares"
-                    [ngStyle]="{'backgroundColor': baseColor}"
+                    [ngStyle]="{'backgroundColor': enemyBaseColor}"
                     style="height: 40px; width: 40px; box-sizing: border-box; border: 1px solid black; 
                     text-align: center; vertical-align: middle; line-height: 40px;"
                     id="{{s}}e">

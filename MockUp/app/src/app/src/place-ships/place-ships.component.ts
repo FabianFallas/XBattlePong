@@ -14,6 +14,8 @@ export class PlaceShipsComponent implements OnInit {
 
   // Color of the unaltered squares
   baseColor: string = '';
+  // Color of the enemy squares
+  enemyBaseColor: string = '';
   // List used for the creating of the grid tiles or squares
   squares: number[] = [];
   // List of the positions of were the ships are located
@@ -42,6 +44,7 @@ export class PlaceShipsComponent implements OnInit {
   ngOnInit(): void {
     // We set the main color of the squares
     this.baseColor = 'aquamarine';
+    this.enemyBaseColor = '#008060'
 
     // We set the proportions of the grid based on the rules
     this.width = this.service.eventRules.filas;

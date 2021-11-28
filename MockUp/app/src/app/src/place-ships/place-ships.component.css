@@ -29,61 +29,14 @@
   }
   
   .grid-display {
-    width: 400px;
-    height: 400px;
-    margin: 20px;
+    width: 200px;
+    height: auto;
+    margin: 10px;
+    padding: 5px;
     background-color: bisque;
   }
   
-  .destroyer-container {
-    width: 80px;
-    height: 40px;
-    background-color: orange;
-    margin: 10px;
-    display: flex;
-  }
-  
-  .destroyer-container-vertical {
-    width: 40px;
-    height: 80px;
-    background-color: orange;
-    margin: 10px;
-    display: flex;
-  }
-  
-  .submarine-container {
-    width: 120px;
-    height: 40px;
-    background-color: blue;
-    margin: 10px;
-    display: flex;
-  }
-  
-  .submarine-container-vertical {
-    width: 40px;
-    height: 120px;
-    background-color: blue;
-    margin: 10px;
-    display: flex;
-    /*flex-wrap: wrap;*/
-  }
-  
-  .battleship-container {
-    width: 160px;
-    height: 40px;
-    background-color: red;
-    margin: 10px;
-    display: flex;
-  }
-  
-  .battleship-container-vertical {
-    width: 40px;
-    height: 160px;
-    background-color: red;
-    margin: 10px;
-    display: flex;
-    /*flex-wrap: wrap;*/
-  }
+
   
   .ship div {
     width: 40px;
@@ -92,7 +45,7 @@
   
   .column {
     float: left;
-    width: 50%;
+    width: auto;
   }
   
   /* Clear floats after the columns */
@@ -100,4 +53,5 @@
     content: "";
     display: table;
     clear: both;
+    width: auto;
   }
