@@ -130,7 +130,7 @@ export class PlaceShipsComponent implements OnInit {
 
     // If a ship is selected, the position is correct and it can be placed we put it on the grid
     if (this.isShipSelected) {
-      if (this.placedShipsAmount <= this.service.eventRules.cantidadDeBarcos) {
+      if (this.placedShipsAmount < this.service.eventRules.cantidadDeBarcos) {
         if (this.squaresOccupied.length + (this.selectedShip.length * this.selectedShip.width) <= this.squares.length / 2) {
           if (this.isPositionCorrect(id)) {
           
@@ -219,5 +219,29 @@ export class PlaceShipsComponent implements OnInit {
       } 
     }
     return true;
+  }
+
+  createGame(): void {
+    this.service.gameID = 'qwer432'
+    let msgAddPlayer = '{"NombreDeUsuario":"Jugador1","PosicionamientoBarcosList":['+ this.squaresOccupied + '],"partidasID_fk":"' + this.service.gameID + '"}'
+    console.log(msgAddPlayer)
+
+    if (this.placedShipsAmount == this.service.eventRules.cantidadDeBarcos) {
+      this.service.Post(this.service.eventID,'http://localhost:5000/api/Partidas').subscribe(
+        res => {
+          console.log(res)
+          this.service.gameID = res;
+          this.createPlayerOnGame();
+        }
+      )
+    }
+    else {
+      alert('Aun no se puede crear la partida, faltan barcos de colocar')
+    }
+  }
+
+  createPlayerOnGame(): void {
+    let msgAddPlayer = '{"NombreDeUsuario":"Jugador1","PosicionamientoBarcosList":['+ this.squaresOccupied + '],"partidasID_fk":"' + this.service.gameID + '"}'
+    this.service.Post(msgAddPlayer,'http://localhost:5000/api/UsuarioEnPartida')
   }
 }

@@ -36,7 +36,14 @@
     background-color: bisque;
   }
   
-
+  .boton{
+    width: 100px;
+    height: 30px;
+    align-self: center;
+    background-color: rgb(187, 209, 88);;
+    border-radius: 5px;
+    margin-left: 5px;
+  }
   
   .ship div {
     width: 40px;
