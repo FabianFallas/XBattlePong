@@ -7,12 +7,14 @@ import { Rules } from './src/models/rules.model';
 })
 export class ConnectionService {
   // This rules are only used for test cases
-  eventRules: Rules = new Rules('none',11,9,'Individual',5,10,'none');
+  eventRules: Rules = new Rules('none',11,11,'Individual',5,10,'none');
 
-  // Vars
+  // IDs
   eventID: string;
-  username: string;
   gameID: string;
+  // Default players names
+  username: string = 'Jugador 1';
+  enemyUsername: string = 'Jugador 2';
 
   constructor(private http: HttpClient) { }
 

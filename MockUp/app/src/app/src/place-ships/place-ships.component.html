@@ -29,24 +29,28 @@
 
 <div class="row">
      <div class="column">
+          <strong> Mi pantalla: {{this.service.username}}</strong>
           <div class="grid-user"
                [ngStyle]="{'width.px': width * 40, 'height.px': height * 40}">
                <div *ngFor="let s of squares"
                     (click)="squareClicked($event)"
                     [ngStyle]="{'backgroundColor': baseColor}"
-                    style="height: 40px; width: 40px; box-sizing: border-box; border: 1px solid black"
+                    style="height: 40px; width: 40px; box-sizing: border-box; border: 1px solid black; 
+                    text-align: center; vertical-align: middle; line-height: 40px;"
                     id="{{s}}">
                {{s}}</div>
           </div>
      </div>
      <div class="column">
+          <strong> Pantalla rival: {{this.service.enemyUsername}}</strong>
           <div class="grid-user"
                [ngStyle]="{'width.px': width * 40, 'height.px': height * 40}">
                <div *ngFor="let s of squares"
                     [ngStyle]="{'backgroundColor': baseColor}"
-                    style="height: 40px; width: 40px; box-sizing: border-box; border: 1px solid black"
+                    style="height: 40px; width: 40px; box-sizing: border-box; border: 1px solid black; 
+                    text-align: center; vertical-align: middle; line-height: 40px;"
                     id="{{s}}e">
-               </div>
+               {{s}}</div>
           </div>
      </div>
 </div>

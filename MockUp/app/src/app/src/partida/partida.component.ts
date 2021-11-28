@@ -10,7 +10,7 @@ import { Rules } from '../models/rules.model';
 })
 export class PartidaComponent implements OnInit {
   // This attributes display different html components
-  showBoards: boolean = false;
+  showBoards: boolean = true;
   showGames: boolean = false;
 
   // This attributes store recieved information
@@ -74,6 +74,9 @@ export class PartidaComponent implements OnInit {
    */
   joinGame(gameID: any):void{
     this.service.gameID = gameID;
+    this.service.username = 'Jugador 2'
+    this.service.username = 'Jugador 1'
+
     this.getRules(this.service.eventID);
   }
 }
