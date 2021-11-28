@@ -47,8 +47,8 @@ export class PlaceShipsComponent implements OnInit {
 
     // We filled the available ships list with the ships
     this.ships.push(new Ship('destroyer',3,2,'orange'))
-    this.ships.push(new Ship('submarine',4,1,'blue'))
-    this.ships.push(new Ship('battleship',5,3,'red'))
+    this.ships.push(new Ship('submarine',2,1,'blue'))
+    this.ships.push(new Ship('battleship',1,3,'red'))
 
     // We calculate the right most squares of the grid, used for defining boundaries
     for (let f = 1; f <= this.height; f++){
