@@ -55,6 +55,8 @@ export class EventoComponent implements OnInit {
           this.token = "FAVOR INGRESE LOS DATOS COMPLETOS";
       }
       else{
+        this.service.eventCode = codigo;
+
         // THIS MUST BE CHANGED
         let tokenRand = Math.random().toString(15).substr(2, 6);
         this.token = "Código de evento " + tokenRand;
@@ -80,7 +82,11 @@ export class EventoComponent implements OnInit {
       alert('Por favor digite un tamaño correcto de barco')
       return
     }
-      
-    alert('TO DO')
+    
+    let msgAddShip = '{"alto:"' + Number(length) + ',"ancho:"' + Number(width) + ',"codigoDeEvento_fk":"' + this.service.eventCode + '"}'
+    console.log(msgAddShip)
+    this.service.Post(msgAddShip, 'http://localhost:5000/api/CatalogoDeNaves').subscribe(res=> {
+      console.log(res)
+    })
   }
 }

@@ -9,6 +9,11 @@
     margin: 20px;
   }
   
+  .labelt{
+    color: rgb(40, 38, 59);
+    text-shadow: 0 0 3px #adda5a;
+  }
+  
   .grid div {
     width: 40px;
     height: 40px;

@@ -170,12 +170,12 @@
 
       <!--ADD SHIP TO CATALOGUE-->
       <!--ADD SHIP TO CATALOGUE-->
-      <h3 class= "labelt" style="font-family: Arial, Helvetica, sans-serif"> Agregar  </h3>
+      <h3 class= "labelt" style="font-family: Arial, Helvetica, sans-serif"> Agregar barco al catalogo </h3>
       <mat-card class="example-card">
         <form [formGroup]="newShipForm">
 
-          <label  class="label" >Dimensiones del Tablero</label>
-          
+          <label  class="label" >Dimensiones del nuevo barco</label>
+          <br><br>
           <div class = "inicio">
             
             <div class = "evento" >
@@ -190,12 +190,13 @@
 
           </div>
           
-          <button class="boton-ship" (click)="addShip(shipLength.value,shipWidth.value)" [disabled]="!newShipForm.valid" >Agregar barco</button>
+          <button class="boton-ship" (click)="addShip(shipLength.value,shipWidth.value)">Agregar barco</button>
 
           
           
         </form>
 
+        <br>
         <label  class="label" >Cantidad de barcos en el catalogo: {{amountOfShips}}</label>
 
       </mat-card>

@@ -11,6 +11,7 @@ export class ConnectionService {
 
   // IDs
   eventID: string;
+  eventCode: string;
   gameID: string;
   // Default players names
   username: string = 'Jugador 1';
