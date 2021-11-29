@@ -11,11 +11,17 @@ import { Ship } from '../models/ship.model';
   styleUrls: ['./place-ships.component.css']
 })
 export class PlaceShipsComponent implements OnInit {
+  // Roots
+  rootGetCagatoloDeNaveByToken: string = 'http://localhost:5000/api/CatalogoDeNaves/GetCatalogoDeNavesByToken/';
+  rootGetUserEnPartidaStateByUsername: string = 'http://localhost:5000/api/UsuarioEnPartida/GetUserEnPartidaStateByUsername/'
 
   // Color of the unaltered squares
   baseColor: string = '';
   // Color of the enemy squares
   enemyBaseColor: string = '';
+  // Shot colors
+  impactColor: string = '';
+  missColor: string = '';
   // List used for the creating of the grid tiles or squares
   squares: number[] = [];
   // List of the positions of were the ships are located
@@ -38,6 +44,8 @@ export class PlaceShipsComponent implements OnInit {
   // Amount of ships placed
   placedShipsAmount: number = 0;
 
+  turn: boolean = false;
+
   constructor(public service: ConnectionService) {
   }
 
@@ -45,29 +53,24 @@ export class PlaceShipsComponent implements OnInit {
     // We set the main color of the squares
     this.baseColor = 'aquamarine';
     this.enemyBaseColor = '#008060'
+    this.impactColor = 'blue'
+    this.missColor = 'red'
 
     // We set the proportions of the grid based on the rules
     this.width = this.service.eventRules.filas;
     this.height = this.service.eventRules.columnas;
 
-
     // GET of the ships
-    this.service.Get('http://localhost:5000/api/CatalogoDeNaves/GetCatalogoDeNavesByToken/' + this.service.eventID).subscribe(
-      res => {
-        console.log(res)
-        this.barcos = res;
-            // If the server sends ships we get data from them and adapted them to our model
-        if (this.barcos.length > 0){
-          this.service.eventCode = this.barcos[0].codigoDeEvento_fk
-
-          for (let i = 0; i < this.barcos.length; i++){
-            this.ships.push(new Ship(this.barcos[i].naveID,this.barcos[i].alto,this.barcos[i].ancho,this.barcos[i].color))
-          }
+    this.service.Get(this.rootGetCagatoloDeNaveByToken + this.service.eventID).subscribe(res => {
+      this.barcos = res;
+      // If the server sends ships we get data from them and adapted them to our model
+      if (this.barcos.length > 0){
+        this.service.eventCode = this.barcos[0].codigoDeEvento_fk
+        for (let i = 0; i < this.barcos.length; i++){
+          this.ships.push(new Ship(this.barcos[i].naveID,this.barcos[i].alto,this.barcos[i].ancho,this.barcos[i].color))
         }
-        console.log(this.ships);
       }
-    )
-
+    })
 
     // We manually filled the available ships list with the ships
     /*
@@ -156,6 +159,7 @@ export class PlaceShipsComponent implements OnInit {
               }
               this.placedShipsAmount++
             }
+            // We deselect the ship
             this.isShipSelected = false;
           } else {
               alert('Posicion invalida para colocar esta nave')
@@ -166,9 +170,46 @@ export class PlaceShipsComponent implements OnInit {
           }
       } else {
         alert('Ya no se pueden colocar mas aves')
+        this.isShipSelected = false;
         }
     } else {
       alert('No se ha seleccionado ninguna nave para colocar')
+    }
+  }
+
+  /**
+   * This method is called when a clicked enemy square is clicked, communicates with the server to
+   * see if the square clicked has a ship on it. if its an impact or a miss it marks it accordingly
+   * and if its a miss the player loses its turn and starts waiting
+   * @param e clicked event
+   */
+  enemySquareClicked(e: any): void {
+    if (this.turn) {
+      // We get the enemy square ID
+      let esid: string = e.target.id.toString();
+      // We get the numer ID only
+      let id: string = esid.slice(0,-1)
+
+      // We do the shot PUT to the server
+      let msgShot = '{"NombreDeUsuario":"' + this.service.username + ',"PosicionamientoDeJugadasIndex":'+ id + ',"PosicionamientoDeJugadasList":[]}'
+      this.service.Put(msgShot,'http://localhost:5000/api/UsuarioEnPartida').subscribe(res => {
+      // If the shot hits we mark the square, if it fails we mark the square on a different color, change turns and wait
+      if(res) {
+          document.getElementById(esid.toString())!.style.backgroundColor = this.impactColor;
+        } else {
+          document.getElementById(esid.toString())!.style.backgroundColor = this.missColor;
+          this.turn = false;
+          let msgChangeTurn = '{"NombreDeUsuario":"' + this.service.username + '"}' 
+          this.service.Put(msgChangeTurn,'http://localhost:5000/api/UsuarioEnPartida/ChangeState').subscribe(res => {
+            let msgChangeTurn2 = '{"NombreDeUsuario":"' + this.service.enemyUsername + '"}' 
+            this.service.Put(msgChangeTurn2,'http://localhost:5000/api/UsuarioEnPartida/ChangeState').subscribe(res => {
+              this.waitTurn();
+            })
+          })
+        }
+      })
+    } else {
+      alert('No se puede disparar fuera de turno')
     }
   }
 
@@ -220,7 +261,7 @@ export class PlaceShipsComponent implements OnInit {
   }
 
   /**
-   * This method creates a game, if the current payer is a creator, and joins the player to the game if they have placed the correct amount of ships
+   * This method creates a game, if the current player is a creator, and joins the player to the game if they have placed the correct amount of ships
    */
   createGame(): void {
     if (this.placedShipsAmount == this.service.eventRules.cantidadDeBarcos) {
@@ -228,7 +269,6 @@ export class PlaceShipsComponent implements OnInit {
         let msgPartida = '{"token":"'+this.service.eventID+'"}'
         this.service.Post(msgPartida,'http://localhost:5000/api/Partidas').subscribe(
           res => {
-            console.log(res)
             this.service.gameID = res.partidasID;
             this.createPlayerOnGame('Jugador1');
           }
@@ -236,9 +276,7 @@ export class PlaceShipsComponent implements OnInit {
       } else {
         this.createPlayerOnGame('Jugador2')
         let msgChangeState = '{"NombreDeUsuario":"Jugador1"}'
-        this.service.Put(msgChangeState,'http://localhost:5000/api/UsuarioEnPartida/ChangeState').subscribe(
-          res=>{ console.log(res)}
-        )
+        this.service.Put(msgChangeState,'http://localhost:5000/api/UsuarioEnPartida/ChangeState').subscribe(res=>{})
       }
     }
     else {
@@ -253,8 +291,26 @@ export class PlaceShipsComponent implements OnInit {
   createPlayerOnGame(player: string): void {
     let msgAddPlayer = '{"NombreDeUsuario":"' + player +'","PosicionamientoBarcosList":['+ this.squaresOccupied + '],"partidasID_fk":"' + this.service.gameID + '"}'
     console.log(msgAddPlayer)
-    this.service.Post(msgAddPlayer,'http://localhost:5000/api/UsuarioEnPartida').subscribe(
-      res => {}
-    )
+    this.service.Post(msgAddPlayer,'http://localhost:5000/api/UsuarioEnPartida').subscribe(res => {
+      this.service.Get(this.rootGetUserEnPartidaStateByUsername + this.service.username).subscribe( res => {
+        if (res === 'Playing') {
+          this.turn = true;
+        } else {
+          this.turn = false;
+          this.waitTurn();
+        }
+      })
+    })
+  }
+
+  async waitTurn(): Promise<void> {
+    while(!this.turn) {
+      await new Promise(f => setTimeout(f, 3000));
+      this.service.Get(this.rootGetUserEnPartidaStateByUsername + this.service.username).subscribe( res => {
+        if (res === 'Playing') {
+          this.turn = true;
+        }
+      })
+    }
   }
 }

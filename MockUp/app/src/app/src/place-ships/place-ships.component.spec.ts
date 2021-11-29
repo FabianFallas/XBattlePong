@@ -1,17 +1,30 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClient } from '@angular/common/http';
+
 import { Ship } from '../models/ship.model';
 import { PlaceShipsComponent } from './place-ships.component';
+
+// Http testing module and mocking controller
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+
+// Other imports
+
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 describe('PlaceShipsComponent', () => {
   let component: PlaceShipsComponent;
   let fixture: ComponentFixture<PlaceShipsComponent>;
+  let httpClient: HttpClient;
+  let httpTestingController: HttpTestingController;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
+      imports: [ HttpClientTestingModule ],
       declarations: [ PlaceShipsComponent ]
-    })
-    .compileComponents();
+    }).compileComponents();;
+
+    // Inject the http service and test controller for each test
+    httpClient = TestBed.get(HttpClient);
+    httpTestingController = TestBed.get(HttpTestingController);
   });
 
   beforeEach(() => {
@@ -47,11 +60,11 @@ describe('PlaceShipsComponent', () => {
   });
 
   it('should not allow a horizontal position because the ship is out of bounds', function () {
-    component.width = 10;
-    component.height = 10;
+    component.width = 2;
+    component.height = 2;
 
     component.selectedShip = new Ship('destroyer', 3, 1, 'orange');
-    expect(component.isPositionCorrect(100)).toBeFalse();
+    expect(component.isPositionCorrect(1)).toBeFalse();
   });
 
   it('should allow a correct horizontal position', function () {
