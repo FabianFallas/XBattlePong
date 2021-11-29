@@ -64,8 +64,6 @@ export class PartidaComponent implements OnInit {
 
         // We show the list of available games
         this.showGames = true;
-
-        
       }
     );
   }
