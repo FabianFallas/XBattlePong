@@ -199,9 +199,9 @@ export class PlaceShipsComponent implements OnInit {
         } else {
           document.getElementById(esid.toString())!.style.backgroundColor = this.missColor;
           this.turn = false;
-          let msgChangeTurn = '{"NombreDeUsuario":"' + this.service.username + '"}' 
+          let msgChangeTurn = '{"NombreDeUsuario":"' + this.service.username + '"}'
           this.service.Put(msgChangeTurn,'http://localhost:5000/api/UsuarioEnPartida/ChangeState').subscribe(res => {
-            let msgChangeTurn2 = '{"NombreDeUsuario":"' + this.service.enemyUsername + '"}' 
+            let msgChangeTurn2 = '{"NombreDeUsuario":"' + this.service.enemyUsername + '"}'
             this.service.Put(msgChangeTurn2,'http://localhost:5000/api/UsuarioEnPartida/ChangeState').subscribe(res => {
               this.waitTurn();
             })

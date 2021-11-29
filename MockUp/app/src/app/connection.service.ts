@@ -17,8 +17,8 @@ export class ConnectionService {
   isCreator: boolean = true;
 
   // Default players names
-  username: string = 'Jugador 1';
-  enemyUsername: string = 'Jugador 2';
+  username: string = 'Jugador1';
+  enemyUsername: string = 'Jugador2';
 
   constructor(private http: HttpClient) { }
 

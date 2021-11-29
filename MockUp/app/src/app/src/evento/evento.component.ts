@@ -89,7 +89,7 @@ export class EventoComponent implements OnInit {
       alert('Por favor digite un tamaño correcto de barco')
       return
     }
-    this.service.eventCode = 'CR199CR199'
+
     let msgAddShip = '{"alto":' + Number(length) + ',"ancho":' + Number(width) + ',"codigoDeEvento_fk":"' + this.service.eventCode + '"}'
     console.log(msgAddShip)
     this.service.Post(msgAddShip, 'http://localhost:5000/api/CatalogoDeNaves').subscribe(res=> {
