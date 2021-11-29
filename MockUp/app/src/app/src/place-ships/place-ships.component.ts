@@ -221,27 +221,34 @@ export class PlaceShipsComponent implements OnInit {
     return true;
   }
 
+  /**
+   * This method creates a game, if the current payer is a creator, and joins the player to the game if they have placed the correct amount of ships
+   */
   createGame(): void {
-    this.service.gameID = 'qwer432'
-    let msgAddPlayer = '{"NombreDeUsuario":"Jugador1","PosicionamientoBarcosList":['+ this.squaresOccupied + '],"partidasID_fk":"' + this.service.gameID + '"}'
-    console.log(msgAddPlayer)
-
     if (this.placedShipsAmount == this.service.eventRules.cantidadDeBarcos) {
-      this.service.Post(this.service.eventID,'http://localhost:5000/api/Partidas').subscribe(
-        res => {
-          console.log(res)
-          this.service.gameID = res;
-          this.createPlayerOnGame();
-        }
-      )
+      if (this.service.isCreator) {
+        this.service.Post(this.service.eventID,'http://localhost:5000/api/Partidas').subscribe(
+          res => {
+            console.log(res)
+            this.service.gameID = res;
+            this.createPlayerOnGame('Jugador1');
+          }
+        )
+      } else {
+        this.createPlayerOnGame('Jugador2')
+      }
     }
     else {
       alert('Aun no se puede crear la partida, faltan barcos de colocar')
     }
   }
 
-  createPlayerOnGame(): void {
-    let msgAddPlayer = '{"NombreDeUsuario":"Jugador1","PosicionamientoBarcosList":['+ this.squaresOccupied + '],"partidasID_fk":"' + this.service.gameID + '"}'
+  /**
+   * This method joins a given player to the current game
+   * @param player 
+   */
+  createPlayerOnGame(player: string): void {
+    let msgAddPlayer = '{"NombreDeUsuario":"' + player +'","PosicionamientoBarcosList":['+ this.squaresOccupied + '],"partidasID_fk":"' + this.service.gameID + '"}'
     this.service.Post(msgAddPlayer,'http://localhost:5000/api/UsuarioEnPartida')
   }
 }

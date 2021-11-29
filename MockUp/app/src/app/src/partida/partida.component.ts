@@ -64,6 +64,8 @@ export class PartidaComponent implements OnInit {
 
         // We show the list of available games
         this.showGames = true;
+
+        
       }
     );
   }
@@ -72,8 +74,9 @@ export class PartidaComponent implements OnInit {
    * This method the game ID that was selected to join and stores it on the service and gets the rules of the event
    * @param gameID 
    */
-  joinGame(gameID: any):void{
+  chooseGame(gameID: any):void{
     this.service.gameID = gameID;
+    this.service.isCreator = false;
     this.service.username = 'Jugador 2'
     this.service.username = 'Jugador 1'
 

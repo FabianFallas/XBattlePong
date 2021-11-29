@@ -13,6 +13,9 @@ export class ConnectionService {
   eventID: string;
   eventCode: string;
   gameID: string;
+
+  isCreator: boolean = true;
+
   // Default players names
   username: string = 'Jugador 1';
   enemyUsername: string = 'Jugador 2';
