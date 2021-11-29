@@ -293,7 +293,7 @@ export class PlaceShipsComponent implements OnInit {
     console.log(msgAddPlayer)
     this.service.Post(msgAddPlayer,'http://localhost:5000/api/UsuarioEnPartida').subscribe(res => {
       this.service.Get(this.rootGetUserEnPartidaStateByUsername + this.service.username).subscribe( res => {
-        if (res === 'Playing') {
+        if (res) {
           this.turn = true;
         } else {
           this.turn = false;
@@ -307,9 +307,7 @@ export class PlaceShipsComponent implements OnInit {
     while(!this.turn) {
       await new Promise(f => setTimeout(f, 3000));
       this.service.Get(this.rootGetUserEnPartidaStateByUsername + this.service.username).subscribe( res => {
-        if (res === 'Playing') {
-          this.turn = true;
-        }
+        this.turn = res;
       })
     }
   }
