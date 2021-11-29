@@ -43,7 +43,11 @@ export class ConnectionService {
    * @returns The server response
    */
   Put(val:any,updateURL: string){
-    return this.http.put<boolean>(updateURL,val);
+    return this.http.put<any>(updateURL,val,{
+      headers: new HttpHeaders({
+        'Content-Type':'application/json'
+      })
+    });
   }
 
   /**

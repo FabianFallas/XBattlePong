@@ -225,15 +225,20 @@ export class PlaceShipsComponent implements OnInit {
   createGame(): void {
     if (this.placedShipsAmount == this.service.eventRules.cantidadDeBarcos) {
       if (this.service.isCreator) {
-        this.service.Post(this.service.eventID,'http://localhost:5000/api/Partidas').subscribe(
+        let msgPartida = '{"token":"'+this.service.eventID+'"}'
+        this.service.Post(msgPartida,'http://localhost:5000/api/Partidas').subscribe(
           res => {
             console.log(res)
-            this.service.gameID = res;
+            this.service.gameID = res.partidasID;
             this.createPlayerOnGame('Jugador1');
           }
         )
       } else {
         this.createPlayerOnGame('Jugador2')
+        let msgChangeState = '{"NombreDeUsuario":"Jugador1"}'
+        this.service.Put(msgChangeState,'http://localhost:5000/api/UsuarioEnPartida/ChangeState').subscribe(
+          res=>{ console.log(res)}
+        )
       }
     }
     else {
@@ -247,6 +252,9 @@ export class PlaceShipsComponent implements OnInit {
    */
   createPlayerOnGame(player: string): void {
     let msgAddPlayer = '{"NombreDeUsuario":"' + player +'","PosicionamientoBarcosList":['+ this.squaresOccupied + '],"partidasID_fk":"' + this.service.gameID + '"}'
-    this.service.Post(msgAddPlayer,'http://localhost:5000/api/UsuarioEnPartida')
+    console.log(msgAddPlayer)
+    this.service.Post(msgAddPlayer,'http://localhost:5000/api/UsuarioEnPartida').subscribe(
+      res => {}
+    )
   }
 }

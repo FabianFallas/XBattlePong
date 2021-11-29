@@ -83,3 +83,4 @@ export class PartidaComponent implements OnInit {
     this.getRules(this.service.eventID);
   }
 }
+
