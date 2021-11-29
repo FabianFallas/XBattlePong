@@ -10,7 +10,7 @@ import { Rules } from '../models/rules.model';
 })
 export class PartidaComponent implements OnInit {
   // This attributes display different html components
-  showBoards: boolean = true;
+  showBoards: boolean = false;
   showGames: boolean = false;
 
   // This attributes store recieved information
@@ -18,9 +18,9 @@ export class PartidaComponent implements OnInit {
   games: Game[] = [];
 
   // Root URLs to which we make requests
-  rootEventRulesGetURL: string = 'http://localhost:5000/api/Partidas/GetReglasDelEvento/';
+  rootEventRulesGetURL: string = 'http://localhost:5000/api/ReglasDelEvento/GetReglasDelEventoByToken/';
   rootGamesAvailabe: string = 'http://localhost:5000/api/Partidas/GetPartidasByToken/';
-  
+
 
   constructor(private service: ConnectionService) { }
 
@@ -29,19 +29,21 @@ export class PartidaComponent implements OnInit {
 
   /**
    * This method recieves a event id and makes a GET request for rules to the server, the rules are stored on an attribute
-   * @param eventID 
+   * @param eventID
    */
   getRules(eventID: any): void {
     this.service.eventID = eventID;
-    
+
     let url = this.rootEventRulesGetURL + eventID.toString();
     this.service.Get(url).subscribe(
       response => {
+        console.log(response)
         // We assign the eventRules to the response to fill the information
         this.eventRules =  response;
-
+        console.log(this.eventRules)
         // We save the rules on the service for the other components to access
         this.service.eventRules = this.eventRules;
+        console.log(this.service.eventRules)
 
         // We activate the place-ships component
         this.showBoards = true;
@@ -51,7 +53,7 @@ export class PartidaComponent implements OnInit {
 
   /**
    * This method recieves a event id and makes a GET request for available game to the server, the games are stored on an attribute
-   * @param eventID 
+   * @param eventID
    */
   searchGames(eventID: any): void {
     this.service.eventID = eventID;
@@ -59,7 +61,7 @@ export class PartidaComponent implements OnInit {
     let url = this.rootGamesAvailabe + eventID.toString();
     this.service.Get(url).subscribe(
       response => {
-        // We fill the games list with the available games in that event 
+        // We fill the games list with the available games in that event
         this.games = response;
 
         // We show the list of available games
@@ -70,7 +72,7 @@ export class PartidaComponent implements OnInit {
 
   /**
    * This method the game ID that was selected to join and stores it on the service and gets the rules of the event
-   * @param gameID 
+   * @param gameID
    */
   chooseGame(gameID: any):void{
     this.service.gameID = gameID;

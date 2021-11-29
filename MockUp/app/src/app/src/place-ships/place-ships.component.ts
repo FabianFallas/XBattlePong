@@ -50,33 +50,31 @@ export class PlaceShipsComponent implements OnInit {
     this.width = this.service.eventRules.filas;
     this.height = this.service.eventRules.columnas;
 
-    /*
+
     // GET of the ships
     this.service.Get('http://localhost:5000/api/CatalogoDeNaves/GetCatalogoDeNavesByToken/' + this.service.eventID).subscribe(
       res => {
         console.log(res)
         this.barcos = res;
-        console.log(this.barcos);
+            // If the server sends ships we get data from them and adapted them to our model
+        if (this.barcos.length > 0){
+          this.service.eventCode = this.barcos[0].codigoDeEvento_fk
+
+          for (let i = 0; i < this.barcos.length; i++){
+            this.ships.push(new Ship(this.barcos[i].naveID,this.barcos[i].alto,this.barcos[i].ancho,this.barcos[i].color))
+          }
+        }
+        console.log(this.ships);
       }
     )
-    */
 
-    // If the server sends ships we get data from them and adapted them to our model
-    if (this.barcos.length > 0){
-      this.service.eventCode = this.barcos[0].codigoDeEvento_fk
-
-      for (let i = 0; i < this.barcos.length; i++){
-        this.ships[i].name = this.barcos[i].naveID;
-        this.ships[i].length = this.barcos[i].alto;
-        this.ships[i].width = this.barcos[i].ancho;
-        this.ships[i].color = this.barcos[i].color; 
-      }
-    }
 
     // We manually filled the available ships list with the ships
+    /*
     this.ships.push(new Ship('destroyer',3,2,'orange'))
     this.ships.push(new Ship('submarine',2,1,'blue'))
     this.ships.push(new Ship('battleship',1,3,'red'))
+    */
 
     // We calculate the right most squares of the grid, used for defining boundaries
     for (let f = 1; f <= this.height; f++){
@@ -133,7 +131,7 @@ export class PlaceShipsComponent implements OnInit {
       if (this.placedShipsAmount < this.service.eventRules.cantidadDeBarcos) {
         if (this.squaresOccupied.length + (this.selectedShip.length * this.selectedShip.width) <= this.squares.length / 2) {
           if (this.isPositionCorrect(id)) {
-          
+
             // Horizontal placement
             if (this.isHorizontal) {
               for (let i = 0; i < this.selectedShip.width; i++) {
@@ -146,7 +144,7 @@ export class PlaceShipsComponent implements OnInit {
               }
               this.placedShipsAmount++;
             }
-            // Vertical placement 
+            // Vertical placement
             else {
               for (let i = 0; i < this.selectedShip.width; i++) {
                 let currentId = Number(id) + i;
@@ -179,14 +177,14 @@ export class PlaceShipsComponent implements OnInit {
    * If the position of the ship goes against the rules the method returns false, if not returns true
    * @param id of the square to be checked
    */
-  isPositionCorrect(id: any): boolean { 
+  isPositionCorrect(id: any): boolean {
     // Horizontal positioning
     if (this.isHorizontal) {
 
       // Width of the ship
       for (let i = 0; i < this.selectedShip.width; i++) {
         let currentId = Number(id) + i * this.width;
-        
+
         // Length of the ship
         for (let j = 0; j < this.selectedShip.length; ++j) {
           // Checks
@@ -216,7 +214,7 @@ export class PlaceShipsComponent implements OnInit {
           }
           currentId += this.width;
         }
-      } 
+      }
     }
     return true;
   }
@@ -245,7 +243,7 @@ export class PlaceShipsComponent implements OnInit {
 
   /**
    * This method joins a given player to the current game
-   * @param player 
+   * @param player
    */
   createPlayerOnGame(player: string): void {
     let msgAddPlayer = '{"NombreDeUsuario":"' + player +'","PosicionamientoBarcosList":['+ this.squaresOccupied + '],"partidasID_fk":"' + this.service.gameID + '"}'
