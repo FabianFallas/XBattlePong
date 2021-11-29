@@ -78,7 +78,7 @@ export class PartidaComponent implements OnInit {
     this.service.gameID = gameID;
     this.service.isCreator = false;
     this.service.username = 'Jugador 2'
-    this.service.username = 'Jugador 1'
+    this.service.enemyUsername = 'Jugador 1'
 
     this.getRules(this.service.eventID);
   }
