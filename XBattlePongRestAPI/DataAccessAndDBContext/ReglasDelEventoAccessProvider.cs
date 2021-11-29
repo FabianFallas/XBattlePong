@@ -54,5 +54,13 @@ namespace XBattlePongRestAPI.DataAccessAndDBContext
         {
             return _xBattlePongDbContext.ReglasDelEvento.Any(e => e.ReglaDelEventoID == id);
         }
+
+        public ReglasDelEvento GetReglasDelEventoRecordsByToken(string token)
+        {
+            string codigoDeEvento = _xBattlePongDbContext.TokenConEvento.Where(t => t.token == token).Select(c => c.codigoDeEvento_fk).SingleOrDefault();
+            ReglasDelEvento reglasDelEventoWithTokenList = _xBattlePongDbContext.ReglasDelEvento.Where(
+                r => r.codigoDeEvento_fk == codigoDeEvento).SingleOrDefault();
+            return reglasDelEventoWithTokenList;
+        }
     }
 }
