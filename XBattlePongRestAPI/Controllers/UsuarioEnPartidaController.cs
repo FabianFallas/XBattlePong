@@ -91,7 +91,7 @@ namespace XBattlePongRestAPI.Controllers
         public ActionResult PutUsuarioEnPartidaState([FromBody] UsuarioEnPartida usuarioEnPartida)
         {
             _usuarioEnPartidaAccessProvider.UpdateUsuarioEnPartidaSTATERecord(usuarioEnPartida);
-            return Ok("Updated!");
+            return Ok(true);
 
         }
 
